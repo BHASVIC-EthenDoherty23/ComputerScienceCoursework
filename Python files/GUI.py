@@ -21,7 +21,21 @@ def mainMenuDisplayer():
     quitButton = pygame.draw.rect(screen, defaultBoxColour,  (size[0]/2.5 , size[1] * 0.8 , size[0]/4 , size[1]/10), 0 )
     currentScene = "mainMenu"
 
-mainMenuDisplayer()
-pygame.display.flip()
 
-time.sleep(60)
+def playMenuDisplayer():
+    currentScene = "playMenu"
+    background = pygame.draw.rect(screen, defaultBackgroundColor, (0,0,size[0],size[1]), 0)
+
+def main():
+    run = True
+    mainMenuDisplayer()
+    while run:
+        pygame.display.update()
+        for event in pygame.event.get():
+            if event.type == pygame.BUTTON_LEFT:
+                run = False
+
+
+main()
+
+pygame.quit()
