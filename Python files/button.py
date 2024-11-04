@@ -2,8 +2,8 @@ import pygame
 
 class Button():
     #instantiates buttons
-    def __init__(self,xCoord,yCoord, imageGiven , givenScale):
-        imageGiven = pygame.transform.scale(imageGiven, (givenScale*3, givenScale)) #makes image the size of the givenScale in a 3:1 ratio of x:y
+    def __init__(self,xCoord,yCoord, imageGiven , givenScale, givenScale2):
+        imageGiven = pygame.transform.scale(imageGiven, (givenScale, givenScale2)) #makes image the size of the givenScale in a 3:1 ratio of x:y
         self.image = imageGiven
         self.rect = self.image.get_rect()
         self.rect.topleft = (xCoord, yCoord)

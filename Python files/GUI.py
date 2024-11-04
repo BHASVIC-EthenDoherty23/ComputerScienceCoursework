@@ -2,7 +2,7 @@ import sys
 
 import pygame
 from pygame import time
-
+import numpy as np
 import button
 
 #initialise pygame and screen
@@ -24,16 +24,22 @@ easy_Button = pygame.image.load('Images/EasyButton.png').convert_alpha()  #loads
 medium_Button = pygame.image.load('Images/MediumButton.png').convert_alpha()  #loads the MediumButton image
 hard_Button = pygame.image.load('Images/HardButton.png').convert_alpha()  #loads the HardButton image
 grid_Square = pygame.image.load('Images/gridSquare.png').convert_alpha() # loads the gridSquare image
+red_cross = pygame.image.load('Images/redCross.png').convert_alpha() # loads the redCross image
 
 #create buttons using button class
-startButton = button.Button(size[0] / 2.5, size[1] * 0.2, start_Button, 150)
-settingsButton = button.Button(size[0] / 2.5, size[1] * 0.4, settings_Button, 150)
-statisticsButton = button.Button(size[0] / 2.5, size[1] * 0.6, statistics_Button, 150)
-exitButton = button.Button(size[0] / 2.5, size[1] * 0.8, exit_Button, 150)
-backButton = button.Button(0, 0, back_Button, 200)
-easyButton = button.Button(size[0] / 2.5, size[1] * 0.2, easy_Button, 150)
-mediumButton = button.Button(size[0] / 2.5, size[1] * 0.4, medium_Button, 150)
-hardButton = button.Button(size[0] / 2.5, size[1] * 0.6, hard_Button, 150)
+startButton = button.Button(size[0] / 2.5, size[1] * 0.2, start_Button, 450, 150)
+settingsButton = button.Button(size[0] / 2.5, size[1] * 0.4, settings_Button, 450, 150)
+statisticsButton = button.Button(size[0] / 2.5, size[1] * 0.6, statistics_Button, 450, 150)
+exitButton = button.Button(size[0] / 2.5, size[1] * 0.8, exit_Button, 450, 150)
+backButton = button.Button(0, 0, back_Button, 600, 200)
+easyButton = button.Button(size[0] / 2.5, size[1] * 0.2, easy_Button, 450, 150)
+mediumButton = button.Button(size[0] / 2.5, size[1] * 0.4, medium_Button, 450, 150)
+hardButton = button.Button(size[0] / 2.5, size[1] * 0.6, hard_Button, 450, 150)
+
+playerGrid = [[grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square]]
+for i in range(0,10):
+    for j in range(0,10):
+        playerGrid[i][j] = button.Button(50*i + size[0] / 5, 50*j + size[1]/ 3, grid_Square, 50, 50)
 currentScene = "mainMenu"  #used so the program knows what screen to display to start with
 
 backStack = list()  #Stack for the back button
@@ -70,6 +76,7 @@ def playMenuScene(currentScene):
     if backButton.draw(screen) and time.get_ticks() - timeSinceSceneChange > 100:
         currentScene = backStack.pop()
     if easyButton.draw(screen) and time.get_ticks() - timeSinceSceneChange > 100:
+        backStack.append(currentScene)
         currentScene = "easyGame"
         timeSinceSceneChange = time.get_ticks()
     if mediumButton.draw(screen) and time.get_ticks() - timeSinceSceneChange > 100:
@@ -81,8 +88,7 @@ def playMenuScene(currentScene):
     return currentScene
 
 
-#game loop
-run = True
+
 
 
 def settingsMenuScene(currentScene):
@@ -94,8 +100,17 @@ def statisticsMenuScene(currentScene):
 
 
 def easyGameScene(currentScene):
-    pass
+    global backStack
+    global timeSinceSceneChange
+    screen.fill(defaultBackgroundColor)
+    for i in range(0,10):
+        for j in range(0,10):
+            if grid_Square.draw(screen) and time.get_ticks() - timeSinceSceneChange > 100:
+                 playerGrid[i,j] = button.Button(50*i + size[0] / 5, 50*j + size[1]/ 3, red_cross, 50, 50)
+        if backButton.draw(screen) and  time.get_ticks() - timeSinceSceneChange > 100:
+            currentScene = backStack.pop()
 
+    return currentScene
 
 
 def mediumGameScene(currentScene):
@@ -105,27 +120,34 @@ def mediumGameScene(currentScene):
 def hardGameScene(currentScene):
     pass
 
-
+#game loop
+run = True
 while run:
     print(backStack, "back stack")
     if currentScene == "mainMenu":
         print(currentScene)
         currentScene = mainMenuScene(currentScene)
+
     elif currentScene == "playMenu":
         print(currentScene)
         currentScene = playMenuScene(currentScene)
+
     elif currentScene == "settingsMenu":
         print(currentScene)
         currentScene = settingsMenuScene(currentScene)
+
     elif currentScene == "statisticsMenu":
         print(currentScene)
         currentScene == statisticsMenuScene(currentScene)
+
     elif currentScene == "easyGame":
         print(currentScene)
         currentScene = easyGameScene(currentScene)
+
     elif currentScene == "mediumGame":
         print(currentScene)
         currentScene = mediumGameScene(currentScene)
+
     elif currentScene == "hardGame":
         print(currentScene)
         currentScene = hardGameScene(currentScene)
