@@ -2,11 +2,13 @@ import pygame
 
 class Button():
     #instantiates buttons
-    def __init__(self,xCoord,yCoord, imageGiven):
+    def __init__(self,xCoord,yCoord, imageGiven , givenScale):
+        imageGiven = pygame.transform.scale(imageGiven, (givenScale*3, givenScale)) #makes image the size of the givenScale in a 3:1 ratio of x:y
         self.image = imageGiven
         self.rect = self.image.get_rect()
         self.rect.topleft = (xCoord, yCoord)
         self.clicked = False
+
 
     #draws buttons and creates collision detection
     def draw(self, surface):
