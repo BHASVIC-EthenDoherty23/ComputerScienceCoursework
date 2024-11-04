@@ -36,9 +36,9 @@ easyButton = button.Button(size[0] / 2.5, size[1] * 0.2, easy_Button, 450, 150)
 mediumButton = button.Button(size[0] / 2.5, size[1] * 0.4, medium_Button, 450, 150)
 hardButton = button.Button(size[0] / 2.5, size[1] * 0.6, hard_Button, 450, 150)
 
-playerGrid = [[grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square]]
-for i in range(0,10):
-    for j in range(0,10):
+playerGrid = [[grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square]]
+for i in range(10):
+    for j in range(10):
         playerGrid[i][j] = button.Button(50*i + size[0] / 5, 50*j + size[1]/ 3, grid_Square, 50, 50)
 currentScene = "mainMenu"  #used so the program knows what screen to display to start with
 
@@ -103,9 +103,9 @@ def easyGameScene(currentScene):
     global backStack
     global timeSinceSceneChange
     screen.fill(defaultBackgroundColor)
-    for i in range(0,10):
-        for j in range(0,10):
-            if grid_Square.draw(screen) and time.get_ticks() - timeSinceSceneChange > 100:
+    for i in range(10):
+        for j in range(10):
+            if playerGrid[i][j].draw(screen) and time.get_ticks() - timeSinceSceneChange > 100:
                  playerGrid[i,j] = button.Button(50*i + size[0] / 5, 50*j + size[1]/ 3, red_cross, 50, 50)
         if backButton.draw(screen) and  time.get_ticks() - timeSinceSceneChange > 100:
             currentScene = backStack.pop()
