@@ -28,3 +28,6 @@ class Button():
         surface.blit(self.image, (self.rect.x, self.rect.y))
 
         return clicked
+
+    def replaceImage(self, image):
+        self.image = image

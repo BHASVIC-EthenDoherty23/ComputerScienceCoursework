@@ -25,6 +25,7 @@ medium_Button = pygame.image.load('Images/MediumButton.png').convert_alpha()  #l
 hard_Button = pygame.image.load('Images/HardButton.png').convert_alpha()  #loads the HardButton image
 grid_Square = pygame.image.load('Images/gridSquare.png').convert_alpha() # loads the gridSquare image
 red_cross = pygame.image.load('Images/redCross.png').convert_alpha() # loads the redCross image
+green_Ship = pygame.image.load('Images/greenShip.png').convert_alpha()
 
 #create buttons using button class
 startButton = button.Button(size[0] / 2.5, size[1] * 0.2, start_Button, 450, 150)
@@ -44,6 +45,10 @@ currentScene = "mainMenu"  #used so the program knows what screen to display to 
 
 backStack = list()  #Stack for the back button
 timeSinceSceneChange = 0
+turn = -1
+
+
+ships = list()
 
 #Scene creation for swapping through screens
 def mainMenuScene(currentScene):
@@ -102,13 +107,22 @@ def statisticsMenuScene(currentScene):
 def easyGameScene(currentScene):
     global backStack
     global timeSinceSceneChange
+    global turn
+    global ships
     screen.fill(defaultBackgroundColor)
     for i in range(10):
         for j in range(10):
             if playerGrid[i][j].draw(screen) and time.get_ticks() - timeSinceSceneChange > 100:
-                 playerGrid[i,j] = button.Button(50*i + size[0] / 5, 50*j + size[1]/ 3, red_cross, 50, 50)
+                if turn == -1:
+                    playerGrid
+                if turn == 1 and not enemyShip:
+                    playerGrid[i][j] = button.Button(50*i + size[0] / 5, 50*j + size[1]/ 3, red_cross, 50, 50)
         if backButton.draw(screen) and  time.get_ticks() - timeSinceSceneChange > 100:
+            for i in range(10):
+                for j in range(10):
+                    playerGrid[i][j] = button.Button(50 * i + size[0] / 5, 50 * j + size[1] / 3, grid_Square, 50, 50)
             currentScene = backStack.pop()
+
 
     return currentScene
 
