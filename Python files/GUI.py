@@ -1,9 +1,11 @@
 import sys
+from unittest.mock import right
 
 import pygame
 from pygame import time
 import numpy as np
 import button
+import ships
 
 #initialise pygame and screen
 pygame.init()
@@ -26,6 +28,11 @@ hard_Button = pygame.image.load('Images/HardButton.png').convert_alpha()  #loads
 grid_Square = pygame.image.load('Images/gridSquare.png').convert_alpha() # loads the gridSquare image
 red_cross = pygame.image.load('Images/redCross.png').convert_alpha() # loads the redCross image
 green_Ship = pygame.image.load('Images/greenShip.png').convert_alpha()
+blue_Ship = pygame.image.load('Images/blueShip.png').convert_alpha()
+pink_Ship = pygame.image.load('Images/pinkShip.png').convert_alpha()
+orange_Ship = pygame.image.load('Images/orangeShip.png').convert_alpha()
+yellow_Ship = pygame.image.load('Images/yellowShip.png').convert_alpha()
+
 
 #create buttons using button class
 startButton = button.Button(size[0] / 2.5, size[1] * 0.2, start_Button, 450, 150)
@@ -46,9 +53,40 @@ currentScene = "mainMenu"  #used so the program knows what screen to display to 
 backStack = list()  #Stack for the back button
 timeSinceSceneChange = 0
 turn = -1
+enemyShip = False
 
+#instantiate a list called friendlyShips
+friendlyShips = list()
+enemyShips = list()
 
-ships = list()
+#friendly ships creation
+fs2Ship = ships.Ship(2, green_Ship, right)
+fs2Ship2 = ships.Ship(2, blue_Ship, right)
+fs3Ship = ships.Ship(3, orange_Ship, right)
+fs4Ship = ships.Ship(4, pink_Ship, right)
+fs5Ship = ships.Ship(5, yellow_Ship, right)
+
+#enemy ships creation
+es2Ship = ships.Ship(2, grid_Square, right)
+es2Ship2 = ships.Ship(2, grid_Square, right)
+es3Ship = ships.Ship(3, grid_Square, right)
+es4Ship = ships.Ship(4, grid_Square, right)
+es5Ship = ships.Ship(5, grid_Square, right)
+
+#appends created ships to friendlyShips list
+friendlyShips.append(fs2Ship)
+friendlyShips.append(fs2Ship2)
+friendlyShips.append(fs3Ship)
+friendlyShips.append(fs4Ship)
+friendlyShips.append(fs5Ship)
+
+#appends created ships to enemyShips list
+enemyShips.append(es2Ship)
+enemyShips.append(es2Ship2)
+enemyShips.append(es3Ship)
+enemyShips.append(es4Ship)
+enemyShips.append(es5Ship)
+
 
 #Scene creation for swapping through screens
 def mainMenuScene(currentScene):
