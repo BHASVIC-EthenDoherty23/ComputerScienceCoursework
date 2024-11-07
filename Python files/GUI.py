@@ -1,9 +1,7 @@
 import sys
-from unittest.mock import right
 
 import pygame
 from pygame import time
-import numpy as np
 import button
 import ships
 
@@ -60,18 +58,18 @@ friendlyShips = list()
 enemyShips = list()
 
 #friendly ships creation
-fs2Ship = ships.Ship(2, green_Ship, right)
-fs2Ship2 = ships.Ship(2, blue_Ship, right)
-fs3Ship = ships.Ship(3, orange_Ship, right)
-fs4Ship = ships.Ship(4, pink_Ship, right)
-fs5Ship = ships.Ship(5, yellow_Ship, right)
+fs2Ship = ships.Ship(2, green_Ship, "right")
+fs2Ship2 = ships.Ship(2, blue_Ship, "right")
+fs3Ship = ships.Ship(3, orange_Ship, "right")
+fs4Ship = ships.Ship(4, pink_Ship, "right")
+fs5Ship = ships.Ship(5, yellow_Ship, "right")
 
 #enemy ships creation
-es2Ship = ships.Ship(2, grid_Square, right)
-es2Ship2 = ships.Ship(2, grid_Square, right)
-es3Ship = ships.Ship(3, grid_Square, right)
-es4Ship = ships.Ship(4, grid_Square, right)
-es5Ship = ships.Ship(5, grid_Square, right)
+es2Ship = ships.Ship(2, grid_Square, "right")
+es2Ship2 = ships.Ship(2, grid_Square, "right")
+es3Ship = ships.Ship(3, grid_Square, "right")
+es4Ship = ships.Ship(4, grid_Square, "right")
+es5Ship = ships.Ship(5, grid_Square, "right")
 
 #appends created ships to friendlyShips list
 friendlyShips.append(fs2Ship)
