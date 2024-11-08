@@ -25,12 +25,12 @@ medium_Button = pygame.image.load('Images/MediumButton.png').convert_alpha()  #l
 hard_Button = pygame.image.load('Images/HardButton.png').convert_alpha()  #loads the HardButton image
 grid_Square = pygame.image.load('Images/gridSquare.png').convert_alpha() # loads the gridSquare image
 red_cross = pygame.image.load('Images/redCross.png').convert_alpha() # loads the redCross image
-green_Ship = pygame.image.load('Images/greenShip.png').convert_alpha()
-blue_Ship = pygame.image.load('Images/blueShip.png').convert_alpha()
-pink_Ship = pygame.image.load('Images/pinkShip.png').convert_alpha()
-orange_Ship = pygame.image.load('Images/orangeShip.png').convert_alpha()
-yellow_Ship = pygame.image.load('Images/yellowShip.png').convert_alpha()
-
+green_Ship = pygame.image.load('Images/greenShip.png').convert_alpha() # loads the greenShip image
+blue_Ship = pygame.image.load('Images/blueSquare.png').convert_alpha() # loads the blueSquare image
+pink_Ship = pygame.image.load('Images/pinkSquare.png').convert_alpha() # loads the pinkSquare image
+orange_Ship = pygame.image.load('Images/orangeSquare.png').convert_alpha() # loads the orangeSquare image
+yellow_Ship = pygame.image.load('Images/yellowSquare.png').convert_alpha() # loads the yellowSquare image
+orange_Circle = pygame.image.load('Images/orangeCircle.png').convert_alpha() # loads the redSquare image
 
 #create buttons using button class
 startButton = button.Button(size[0] / 2.5, size[1] * 0.2, start_Button, 450, 150)
@@ -43,9 +43,13 @@ mediumButton = button.Button(size[0] / 2.5, size[1] * 0.4, medium_Button, 450, 1
 hardButton = button.Button(size[0] / 2.5, size[1] * 0.6, hard_Button, 450, 150)
 
 playerGrid = [[grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square]]
+enemyGrid = [[grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square]]
+
+
 for i in range(10):
     for j in range(10):
-        playerGrid[i][j] = button.Button(50*i + size[0] / 5, 50*j + size[1]/ 3, grid_Square, 50, 50)
+        playerGrid[i][j] = button.Button(50*i + size[0] / 5, 50*j + size[1]/ 3, grid_Square, 50, 50) #fill in player and enemy grids with buttons
+        enemyGrid[i][j] = button.Button(50*i + size[0] / 1.5, 50*j + size[1]/ 3, grid_Square, 50, 50)
 currentScene = "mainMenu"  #used so the program knows what screen to display to start with
 
 backStack = list()  #Stack for the back button
@@ -121,9 +125,11 @@ def playMenuScene(currentScene):
         currentScene = "easyGame"
         timeSinceSceneChange = time.get_ticks()
     if mediumButton.draw(screen) and time.get_ticks() - timeSinceSceneChange > 100:
+        backStack.append(currentScene)
         currentScene = "mediumGame"
         timeSinceSceneChange = time.get_ticks()
     if hardButton.draw(screen) and time.get_ticks() - timeSinceSceneChange > 100:
+        backStack.append(currentScene)
         currentScene = "hardGame"
         timeSinceSceneChange = time.get_ticks()
     return currentScene
@@ -141,6 +147,49 @@ def statisticsMenuScene(currentScene):
 
 
 def easyGameScene(currentScene):
+    global backStack, playerGrid
+    global timeSinceSceneChange
+    global turn
+    global ships
+    screen.fill(defaultBackgroundColor)
+    for row in range(10):
+        for column in range(10):
+            if playerGrid[row][column].draw(screen) and time.get_ticks() - timeSinceSceneChange > 100: # checks if the individual grid cell has been clicked
+                timeSinceSceneChange = time.get_ticks()
+                if turn == -1 and not playerGrid[row][column] == grid_Square: # checks if its the ship placing turn and the clicked grid isnt already taken
+                    current_ship = friendlyShips.pop() # sets current_ship to the last
+                    if current_ship.checkSize(row) and current_ship.getRotation() == "right": # checks if the selected cell is valid to place a ship of that size and direction
+                        for k in range(current_ship.getSize()):
+                            playerGrid[row + k][column] = button.Button(50 * (row+k) + size[0] / 5, 50 * column + size[1] / 3, current_ship.getImage(), 50, 50) # for loop that changes the image to the current ships image
+
+                    elif current_ship.checkSize(column) and current_ship.getRotation() == "down": # same as prior if but does down instead of right
+                        for k in range(current_ship.getSize()):
+                            playerGrid[row][column + k] = button.Button(50 * row + size[0] / 5, 50 * column + size[1] / 3, current_ship.getImage(), 50, 50)
+
+                    else:
+                        friendlyShips.append(current_ship) # if the other 2 if statements fail, it reappends the ship to allow the user to retry
+
+                    if len(friendlyShips) == 0:
+                        turn = 1 # if there are no more ships to place, the turn changes to 1
+
+            if enemyGrid[row][column].draw(screen) and time.get_ticks() - timeSinceSceneChange > 100:
+                if turn == 1 and enemyShip:
+                    enemyGrid[row][column] = button.Button(50 * row + size[0] / 1.5, 50 * column + size[1] / 3, orange_Circle, 50, 50)
+                    turn = 2
+                if turn == 1 and not enemyShip:
+                    enemyGrid[row][column] = button.Button(50 * row + size[0] / 1.5, 50 * column + size[1] / 3, red_cross, 50, 50)
+                    turn = 2
+
+        if backButton.draw(screen) and time.get_ticks() - timeSinceSceneChange > 100:
+            currentScene = backStack.pop()
+            for row in range(10):
+                for column in range(10):
+                    playerGrid[row][column] = button.Button(50 * row + size[0] / 5, 50 * column + size[1] / 3, grid_Square, 50, 50)
+
+    return currentScene
+
+
+def mediumGameScene(currentScene):
     global backStack
     global timeSinceSceneChange
     global turn
@@ -150,26 +199,46 @@ def easyGameScene(currentScene):
         for j in range(10):
             if playerGrid[i][j].draw(screen) and time.get_ticks() - timeSinceSceneChange > 100:
                 if turn == -1:
-                    playerGrid
-                if turn == 1 and not enemyShip:
                     playerGrid[i][j] = button.Button(50*i + size[0] / 5, 50*j + size[1]/ 3, red_cross, 50, 50)
+            if enemyGrid[i][j].draw(screen) and time.get_ticks() - timeSinceSceneChange > 100:
+                if turn == 1 and enemyShip:
+                    enemyGrid[i][j] = button.Button(50*i + size[0] / 1.5, 50*j + size[1]/ 3, red_cross, 50, 50)
+                if turn == 1 and not enemyShip:
+                    enemyGrid[i][j] = button.Button(50*i + size[0] / 1.5, 50*j + size[1]/ 3, orange_Circle, 50, 50)
+
         if backButton.draw(screen) and  time.get_ticks() - timeSinceSceneChange > 100:
+            currentScene = backStack.pop()
             for i in range(10):
                 for j in range(10):
                     playerGrid[i][j] = button.Button(50 * i + size[0] / 5, 50 * j + size[1] / 3, grid_Square, 50, 50)
-            currentScene = backStack.pop()
-
 
     return currentScene
 
-
-def mediumGameScene(currentScene):
-    pass
-
-
 def hardGameScene(currentScene):
-    pass
+    global backStack
+    global timeSinceSceneChange
+    global turn
+    global ships
+    screen.fill(defaultBackgroundColor)
+    for i in range(10):
+        for j in range(10):
+            if playerGrid[i][j].draw(screen) and time.get_ticks() - timeSinceSceneChange > 100:
+                if turn == -1:
+                    playerGrid[i][j] = button.Button(50*i + size[0] / 5, 50*j + size[1]/ 3, red_cross, 50, 50)
 
+            if enemyGrid[i][j].draw(screen) and time.get_ticks() - timeSinceSceneChange > 100:
+                if turn == 1 and enemyShip:
+                    enemyGrid[i][j] = button.Button(50*i + size[0] / 1.5, 50*j + size[1]/ 3, red_cross, 50, 50)
+                if turn == 1 and not enemyShip:
+                    enemyGrid[i][j] = button.Button(50*i + size[0] / 1.5, 50*j + size[1]/ 3, orange_Circle, 50, 50)
+
+        if backButton.draw(screen) and time.get_ticks() - timeSinceSceneChange > 100:
+            currentScene = backStack.pop()
+            for i in range(10):
+                for j in range(10):
+                    playerGrid[i][j] = button.Button(50 * i + size[0] / 5, 50 * j + size[1] / 3, grid_Square, 50, 50)
+
+    return currentScene
 #game loop
 run = True
 while run:

@@ -8,15 +8,14 @@ class Ship():
         self.xPos = 0
         self.yPos = 0
 
-    def placeShip(self, grid):
-        if self.rotation == "Right":
-            for i in range(self.size):
-                grid[i + self.xPos][self.yPos]
-        if self.rotation == "Down":
-            for i in range(self.size):
-                grid[self.yPos][i + self.yPos]
-        return grid
+    def getImage(self):
+        return self.image
 
+    def getSize(self):
+        return self.size
+
+    def getRotation(self):
+        return self.rotation
 
     def setPos(self, givenX, givenY):
         self.xPos = givenX
@@ -24,3 +23,8 @@ class Ship():
 
     def setRotation(self, givenRotation):
         self.rotation = givenRotation
+
+    def checkSize(self, i):
+        if 10 - self.size > i:
+            return True
+        return False
