@@ -45,7 +45,6 @@ hardButton = button.Button(size[0] / 2.5, size[1] * 0.6, hard_Button, 450, 150)
 playerGrid = [[grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square]]
 enemyGrid = [[grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square]]
 
-
 for i in range(10):
     for j in range(10):
         playerGrid[i][j] = button.Button(50*i + size[0] / 5, 50*j + size[1]/ 3, grid_Square, 50, 50) #fill in player and enemy grids with buttons
@@ -156,12 +155,16 @@ def easyGameScene(currentScene):
         for column in range(10):
             if playerGrid[row][column].draw(screen) and time.get_ticks() - timeSinceSceneChange > 100: # checks if the individual grid cell has been clicked
                 timeSinceSceneChange = time.get_ticks()
-                if turn == -1 and not playerGrid[row][column] == grid_Square: # checks if its the ship placing turn and the clicked grid isnt already taken
+                if turn == -1: # checks if its the ship placing turn
                     current_ship = friendlyShips.pop() # sets current_ship to the last
                     if current_ship.checkSize(row) and current_ship.getRotation() == "right": # checks if the selected cell is valid to place a ship of that size and direction
+                        overridesShip = False
                         for k in range(current_ship.getSize()):
-                            playerGrid[row + k][column] = button.Button(50 * (row+k) + size[0] / 5, 50 * column + size[1] / 3, current_ship.getImage(), 50, 50) # for loop that changes the image to the current ships image
-
+                            if not playerGrid[row + k][column] == button.Button(50*row + size[0] / 5, 50*column + size[1]/ 3, grid_Square, 50, 50):
+                                overridesShip = True
+                        if not overridesShip:
+                            for k in range(current_ship.getSize()):
+                                playerGrid[row + k][column] = button.Button(50 * (row+k) + size[0] / 5, 50 * column + size[1] / 3, current_ship.getImage(), 50, 50) # for loop that changes the image to the current ships image
                     elif current_ship.checkSize(column) and current_ship.getRotation() == "down": # same as prior if but does down instead of right
                         for k in range(current_ship.getSize()):
                             playerGrid[row][column + k] = button.Button(50 * row + size[0] / 5, 50 * column + size[1] / 3, current_ship.getImage(), 50, 50)
@@ -182,6 +185,7 @@ def easyGameScene(currentScene):
 
         if backButton.draw(screen) and time.get_ticks() - timeSinceSceneChange > 100:
             currentScene = backStack.pop()
+            turn = -1
             for row in range(10):
                 for column in range(10):
                     playerGrid[row][column] = button.Button(50 * row + size[0] / 5, 50 * column + size[1] / 3, grid_Square, 50, 50)
