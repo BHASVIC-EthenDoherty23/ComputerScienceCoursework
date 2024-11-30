@@ -42,13 +42,18 @@ easyButton = button.Button(size[0] / 2.5, size[1] * 0.2, easy_Button, 450, 150)
 mediumButton = button.Button(size[0] / 2.5, size[1] * 0.4, medium_Button, 450, 150)
 hardButton = button.Button(size[0] / 2.5, size[1] * 0.6, hard_Button, 450, 150)
 
+tempPlayerGrid = [[grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square]]
+tempEnemyGrid = [[grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square]]
 playerGrid = [[grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square]]
 enemyGrid = [[grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square]]
 
 for i in range(10):
     for j in range(10):
-        playerGrid[i][j] = button.Button(50*i + size[0] / 5, 50*j + size[1]/ 3, grid_Square, 50, 50) #fill in player and enemy grids with buttons
-        enemyGrid[i][j] = button.Button(50*i + size[0] / 1.5, 50*j + size[1]/ 3, grid_Square, 50, 50)
+        tempPlayerGrid[i][j] = button.Button(50*i + size[0] / 5, 50*j + size[1]/ 3, grid_Square, 50, 50) #fill in player and enemy grids with buttons
+        tempEnemyGrid[i][j] = button.Button(50*i + size[0] / 1.5, 50*j + size[1]/ 3, grid_Square, 50, 50)
+        playerGrid[i][j] = tempPlayerGrid[i][j]
+        enemyGrid[i][j] = tempEnemyGrid[i][j]
+
 currentScene = "mainMenu"  #used so the program knows what screen to display to start with
 
 backStack = list()  #Stack for the back button
@@ -74,20 +79,22 @@ es3Ship = ships.Ship(3, grid_Square, "right")
 es4Ship = ships.Ship(4, grid_Square, "right")
 es5Ship = ships.Ship(5, grid_Square, "right")
 
-#appends created ships to friendlyShips list
-friendlyShips.append(fs2Ship)
-friendlyShips.append(fs2Ship2)
-friendlyShips.append(fs3Ship)
-friendlyShips.append(fs4Ship)
-friendlyShips.append(fs5Ship)
+def resetShipLists():
+    #appends created ships to friendlyShips list
+    friendlyShips.append(fs2Ship)
+    friendlyShips.append(fs2Ship2)
+    friendlyShips.append(fs3Ship)
+    friendlyShips.append(fs4Ship)
+    friendlyShips.append(fs5Ship)
 
-#appends created ships to enemyShips list
-enemyShips.append(es2Ship)
-enemyShips.append(es2Ship2)
-enemyShips.append(es3Ship)
-enemyShips.append(es4Ship)
-enemyShips.append(es5Ship)
+    #appends created ships to enemyShips list
+    enemyShips.append(es2Ship)
+    enemyShips.append(es2Ship2)
+    enemyShips.append(es3Ship)
+    enemyShips.append(es4Ship)
+    enemyShips.append(es5Ship)
 
+resetShipLists()
 
 #Scene creation for swapping through screens
 def mainMenuScene(currentScene):
@@ -160,11 +167,13 @@ def easyGameScene(currentScene):
                     if current_ship.checkSize(row) and current_ship.getRotation() == "right": # checks if the selected cell is valid to place a ship of that size and direction
                         overridesShip = False
                         for k in range(current_ship.getSize()):
-                            if not playerGrid[row + k][column] == button.Button(50*row + size[0] / 5, 50*column + size[1]/ 3, grid_Square, 50, 50):
+                            if not playerGrid[row + k][column] == tempPlayerGrid[row + k][column]:
                                 overridesShip = True
                         if not overridesShip:
                             for k in range(current_ship.getSize()):
                                 playerGrid[row + k][column] = button.Button(50 * (row+k) + size[0] / 5, 50 * column + size[1] / 3, current_ship.getImage(), 50, 50) # for loop that changes the image to the current ships image
+                        else:
+                            friendlyShips.append(current_ship)
                     elif current_ship.checkSize(column) and current_ship.getRotation() == "down": # same as prior if but does down instead of right
                         for k in range(current_ship.getSize()):
                             playerGrid[row][column + k] = button.Button(50 * row + size[0] / 5, 50 * column + size[1] / 3, current_ship.getImage(), 50, 50)
@@ -186,9 +195,11 @@ def easyGameScene(currentScene):
         if backButton.draw(screen) and time.get_ticks() - timeSinceSceneChange > 100:
             currentScene = backStack.pop()
             turn = -1
+            resetShipLists()
             for row in range(10):
                 for column in range(10):
-                    playerGrid[row][column] = button.Button(50 * row + size[0] / 5, 50 * column + size[1] / 3, grid_Square, 50, 50)
+                    playerGrid[row][column] = tempPlayerGrid[row][column]
+                    enemyGrid[row][column] = tempEnemyGrid[row][column]
 
     return currentScene
 
