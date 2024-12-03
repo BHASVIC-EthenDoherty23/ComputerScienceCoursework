@@ -107,10 +107,12 @@ def mainMenuScene(currentScene):
         print(currentScene)
         timeSinceSceneChange = time.get_ticks() #set current time in milliseconds to the variable "timeSinceSceneChange"
     elif settingsButton.draw(screen) and time.get_ticks() - timeSinceSceneChange > 100:  #checks if returned value of clicked is true or false
+        backStack.append(currentScene)
         currentScene = "settingsMenu"  #changes scene to the play menu
         print(currentScene)
         timeSinceSceneChange = time.get_ticks()
     elif statisticsButton.draw(screen) and time.get_ticks() - timeSinceSceneChange > 100:  #checks if returned value of clicked is true or false
+        backStack.append(currentScene)
         currentScene = "statisticsMenu"  #changes scene to the play menu
         print(currentScene)
         timeSinceSceneChange = time.get_ticks()
@@ -145,11 +147,23 @@ def playMenuScene(currentScene):
 
 
 def settingsMenuScene(currentScene):
-    pass
+    screen.fill(defaultBackgroundColor)
+    global backStack
+    global timeSinceSceneChange
+    screen.fill(defaultBackgroundColor)  # fills screen to remove all old scene
+    if backButton.draw(screen) and time.get_ticks() - timeSinceSceneChange > 100:
+        currentScene = backStack.pop()
+    return currentScene
 
 
 def statisticsMenuScene(currentScene):
-    pass
+    screen.fill(defaultBackgroundColor)
+    global backStack
+    global timeSinceSceneChange
+    screen.fill(defaultBackgroundColor)  # fills screen to remove all old scene
+    if backButton.draw(screen) and time.get_ticks() - timeSinceSceneChange > 100:
+        currentScene = backStack.pop()
+    return currentScene
 
 
 def easyGameScene(currentScene):
@@ -164,7 +178,7 @@ def easyGameScene(currentScene):
                 timeSinceSceneChange = time.get_ticks()
                 if turn == -1: # checks if its the ship placing turn
                     current_ship = friendlyShips.pop() # sets current_ship to the last
-                    if current_ship.checkSize(row) and current_ship.getRotation() == "right": # checks if the selected cell is valid to place a ship of that size and direction
+                    if current_ship.checkSize(row-1) and current_ship.getRotation() == "right": # checks if the selected cell is valid to place a ship of that size and direction
                         overridesShip = False
                         for k in range(current_ship.getSize()):
                             if not playerGrid[row + k][column] == tempPlayerGrid[row + k][column]:
@@ -272,7 +286,7 @@ while run:
 
     elif currentScene == "statisticsMenu":
         print(currentScene)
-        currentScene == statisticsMenuScene(currentScene)
+        currentScene = statisticsMenuScene(currentScene)
 
     elif currentScene == "easyGame":
         print(currentScene)
