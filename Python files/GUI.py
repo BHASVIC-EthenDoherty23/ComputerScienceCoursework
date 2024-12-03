@@ -201,29 +201,29 @@ def easyGameScene(currentScene):
                         turn =  0  # if there are no more ships to place, the turn changes to 1
 
 
-            if enemyGrid[row][column].draw(screen) and time.get_ticks() - timeSinceSceneChange > 100:
-                if turn == 0:
-                    current_ship = enemyShips.pop()
-                    row = random_integers(0, 9)
-                    column = random_integers(0, 9)
-                    randomDirection = random_integers(0, 1)
-                    if randomDirection == 0:
-                        direction = "down"
-                    else:
-                        direction = "right"
-                    if current_ship.checkSize(row - 1) and direction == "right":  # checks if the selected cell is valid to place a ship of that size and direction
-                        overridesShip = False
-                        for k in range(current_ship.getSize()):
-                            if not playerGrid[row + k][column] == tempPlayerGrid[row + k][column]:
-                                overridesShip = True
-                        if not overridesShip:
+
+            if turn == 0:
+                 current_ship = enemyShips.pop()
+                 row = random_integers(0, 9)
+                 column = random_integers(0, 9)
+                randomDirection = random_integers(0, 1)
+                if randomDirection == 0:
+                    direction = "down"
+                else:
+                    direction = "right"
+                if current_ship.checkSize(row - 1) and direction == "right":  # checks if the selected cell is valid to place a ship of that size and direction
+                    overridesShip = False
+                    for k in range(current_ship.getSize()):
+                        if not playerGrid[row + k][column] == tempPlayerGrid[row + k][column]:
+                            overridesShip = True
+                            if not overridesShip:
+                                for k in range(current_ship.getSize()):
+                                    enemyGrid[row + k][column] = button.Button(50 * (row + k) + size[0] / 5, 50 * column + size[1] / 3, orange_Circle, 50,50)  # for loop that changes the image to the current ships image
+                            else:
+                              enemyShips.append(current_ship)
+                        elif current_ship.checkSize(column) and current_ship.getRotation() == "down":  # same as prior if but does down instead of right
                             for k in range(current_ship.getSize()):
-                                playerGrid[row + k][column] = button.Button(50 * (row + k) + size[0] / 5, 50 * column + size[1] / 3, orange_Circle, 50,50)  # for loop that changes the image to the current ships image
-                        else:
-                            friendlyShips.append(current_ship)
-                    elif current_ship.checkSize(column) and current_ship.getRotation() == "down":  # same as prior if but does down instead of right
-                        for k in range(current_ship.getSize()):
-                            playerGrid[row][column + k] = button.Button(50 * row + size[0] / 5, 50 * column + size[1] / 3, orange_Circle, 50, 50)
+                                enemyGrid[row][column + k] = button.Button(50 * row + size[0] / 5, 50 * column + size[1] / 3, orange_Circle, 50, 50)
 
                     else:
                         friendlyShips.append(current_ship)  # if the other 2 if statements fail, it reappends the ship to allow the user to retry
