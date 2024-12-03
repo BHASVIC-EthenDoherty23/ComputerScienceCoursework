@@ -262,6 +262,10 @@ def easyGameScene(currentScene):
             currentScene = backStack.pop()
             turn = -1
             resetShipLists()
+            for i in range(len(chosenAttacks)):
+                chosenAttacks.pop()
+            for i in range(len(chosenAttacksPlayer)):
+                chosenAttacksPlayer.pop()
             for row in range(10):
                 for column in range(10):
                     playerGrid[row][column] = tempPlayerGrid[row][column]
