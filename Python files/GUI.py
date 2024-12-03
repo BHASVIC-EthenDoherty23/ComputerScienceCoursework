@@ -203,34 +203,43 @@ def easyGameScene(currentScene):
 
             if turn == 0:
                 current_ship = enemyShips.pop()
+
                 randomRow = random_integers(0, 9)
                 randomColumn = random_integers(0, 9)
                 randomDirection = random_integers(0, 1)
-                print(randomRow + column)
                 if randomDirection == 0:
                     direction = "down"
                 else:
                     direction = "right"
                 if current_ship.checkSize(randomRow - 1) and direction == "right":  # checks if the selected cell is valid to place a ship of that size and direction
+                    timeSinceSceneChange = time.get_ticks()
                     overridesShip = False
                     for k in range(current_ship.getSize()):
-                        if not enemyGrid[randomRow + k][randomColumn] == tempEnemyGrid[randomRow + k][column]:
+                        if not enemyGrid[randomRow + k][randomColumn] == tempEnemyGrid[randomRow + k][randomColumn]:
                             overridesShip = True
-                            if not overridesShip:
-                                for k in range(current_ship.getSize()):
-                                    enemyGrid[randomRow + k][randomColumn] = button.Button(50 * (row + k) + size[0] / 5, 50 * column + size[1] / 3, orange_Circle, 50,50)  # for loop that changes the image to the current ships image
-                            else:
-                              enemyShips.append(current_ship)
-                        elif current_ship.checkSize(randomColumn) and current_ship.getRotation() == "down":  # same as prior if but does down instead of right
-                            for k in range(current_ship.getSize()):
-                                enemyGrid[randomRow][randomColumn + k] = button.Button(50 * row + size[0] / 5, 50 * column + size[1] / 3, orange_Circle, 50, 50)
-
+                    if not overridesShip:
+                        for k in range(current_ship.getSize()):
+                            enemyGrid[randomRow + k][randomColumn] = button.Button(50 * (row + k) + size[0] / 5, 50 * randomColumn + size[1] / 3, orange_Circle, 50,50)  # for loop that changes the image to the current ships image
                     else:
-                        enemyShips.append(current_ship)  # if the other 2 if statements fail, it reappends the ship to allow the user to retry
+                        enemyShips.append(current_ship)
+                elif current_ship.checkSize(randomColumn) and current_ship.getRotation() == "down":  # same as prior if but does down instead of right
+                    overridesShip = False
+                    for k in range(current_ship.getSize()):
+                        if not enemyGrid[randomRow][randomColumn + k] == tempEnemyGrid[randomRow][randomColumn + k]:
+                            overridesShip = True
+                    if not overridesShip:
+                        for k in range(current_ship.getSize()):
+                            enemyGrid[randomRow][randomColumn + k] = button.Button(50 * (row + k) + size[0] / 5, 50 * randomColumn + size[1] / 3, orange_Circle, 50,50)  # for loop that changes the image to the current ships image
+                    else:
+                        enemyShips.append(current_ship)
+
+                else:
+                    enemyShips.append(current_ship)  # if the other 2 if statements fail, it reappends the ship to allow the user to retry
                 if len(enemyShips) == 0:
                     turn = 1
             if enemyGrid[row][column].draw(screen) and time.get_ticks() - timeSinceSceneChange > 100:
                 isAttackablePlayer = True
+                timeSinceSceneChange = time.get_ticks()
                 for i in range(len(chosenAttacksPlayer)):
                     if chosenAttacksPlayer[i] == (row,column):
                         isAttackablePlayer = False
@@ -238,7 +247,7 @@ def easyGameScene(currentScene):
                     enemyGrid[row][column] = button.Button(50 * row + size[0] / 1.5, 50 * column + size[1] / 3, orange_Circle, 50, 50)
                     turn = 2
                 elif turn == 1 and enemyGrid[row][column] == tempEnemyGrid[row][column] and isAttackablePlayer:
-                    enemyGrid[row][column] = button.Button(50 * row + size[0] / 1.5, 50 * column + size[1] / 3, red_cross, 50, 50)
+                    enemyGrid[row][column] = button.Button(50 * row + size[0] / 1.5, 5* column + size[1] / 3, red_cross, 50, 50)
                     turn = 2
             if turn == 2:
                 isAttackable = True
@@ -270,6 +279,7 @@ def easyGameScene(currentScene):
                 for column in range(10):
                     playerGrid[row][column] = tempPlayerGrid[row][column]
                     enemyGrid[row][column] = tempEnemyGrid[row][column]
+            timeSinceSceneChange = time.get_ticks()
 
     return currentScene
 
