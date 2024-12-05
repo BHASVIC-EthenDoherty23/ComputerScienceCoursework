@@ -34,6 +34,8 @@ orange_Ship = pygame.image.load('Images/orangeSquare.png').convert_alpha() # loa
 yellow_Ship = pygame.image.load('Images/yellowSquare.png').convert_alpha() # loads the yellowSquare image
 orange_Circle = pygame.image.load('Images/orangeCircle.png').convert_alpha() # loads the orange_Circle image
 attacked_Ship = pygame.image.load('Images/attackedShip.png').convert_alpha() # loads the attackedShip image
+main_Title = pygame.image.load('Images/mainTitle.png').convert_alpha() # loads the mainTitle image
+select_Difficulty = pygame.image.load('Images/selectDifficulty.png').convert_alpha()
 
 #create buttons using button class
 startButton = button.Button(size[0] / 2.5, size[1] * 0.2, start_Button, 450, 150)
@@ -44,6 +46,8 @@ backButton = button.Button(0, 0, back_Button, 600, 200)
 easyButton = button.Button(size[0] / 2.5, size[1] * 0.2, easy_Button, 450, 150)
 mediumButton = button.Button(size[0] / 2.5, size[1] * 0.4, medium_Button, 450, 150)
 hardButton = button.Button(size[0] / 2.5, size[1] * 0.6, hard_Button, 450, 150)
+mainTitle = button.Button(size[0] /2.7, size[1] * 0.02, main_Title, 600, 200)
+selectDifficulty = button.Button(size[0] /2.7, size[1] * 0.02, select_Difficulty, 600, 200)
 
 tempPlayerGrid = [[grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square]]
 tempEnemyGrid = [[grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square]]
@@ -54,18 +58,18 @@ for i in range(10):
     for j in range(10):
         tempPlayerGrid[i][j] = button.Button(50*i + size[0] / 5, 50*j + size[1]/ 3, grid_Square, 50, 50) #fill in player and enemy grids with buttons
         tempEnemyGrid[i][j] = button.Button(50*i + size[0] / 1.5, 50*j + size[1]/ 3, grid_Square, 50, 50)
-        playerGrid[i][j] = tempPlayerGrid[i][j]
+        playerGrid[i][j] = tempPlayerGrid[i][j] #Sets the playerGrid and enemyGrid to the same as the temp grid
         enemyGrid[i][j] = tempEnemyGrid[i][j]
 
 currentScene = "mainMenu"  #used so the program knows what screen to display to start with
 
 backStack = list()  #Stack for the back button
-timeSinceSceneChange = 0
-turn = -1
+timeSinceSceneChange = time.get_ticks()
+turn = -1 # Place ships phase
 enemyShip = False
-chosenAttacks = list()
+chosenAttacks = list() # lists so that player and computer cant repeat moves
 chosenAttacksPlayer = list()
-#instantiate a list called friendlyShips
+#instantiate a list called friendlyShips and enemyShips
 friendlyShips = list()
 enemyShips = list()
 
@@ -84,7 +88,7 @@ es4Ship = ships.Ship(4, grid_Square, "right")
 es5Ship = ships.Ship(5, grid_Square, "right")
 
 def resetShipLists():
-    #appends created ships to friendlyShips list
+    #appends created ships to friendlyShips and enemyShips list after removing all elements of the friendlyShips and enemyShips lists
     for i in range(len(friendlyShips)):
         friendlyShips.pop()
     for i in range(len(enemyShips)):
@@ -95,12 +99,14 @@ def resetShipLists():
     friendlyShips.append(fs4Ship)
     friendlyShips.append(fs5Ship)
 
-    #appends created ships to enemyShips list
+
     enemyShips.append(es2Ship)
     enemyShips.append(es2Ship2)
     enemyShips.append(es3Ship)
     enemyShips.append(es4Ship)
     enemyShips.append(es5Ship)
+
+    #Resets both lists so that the player and computer can attack in new games
     for i in range(len(chosenAttacks)):
         chosenAttacks.pop()
     for i in range(len(chosenAttacksPlayer)):
@@ -113,6 +119,7 @@ def mainMenuScene(currentScene):
     global backStack
     global timeSinceSceneChange
     background = pygame.draw.rect(screen, defaultBackgroundColor, (0, 0, size[0], size[1]), 0)
+    mainTitle.draw(screen)
     if startButton.draw(screen) and time.get_ticks() - timeSinceSceneChange > 100:  #checks if returned value of clicked is true or false
         backStack.append(currentScene)  # pushes the current scene onto the top of the stack
         currentScene = "playMenu"  #changes scene to the play menu
@@ -138,6 +145,7 @@ def playMenuScene(currentScene):
     global backStack
     global timeSinceSceneChange
     screen.fill(defaultBackgroundColor)  # fills screen to remove all old scene
+    selectDifficulty.draw(screen)
     if backButton.draw(screen) and time.get_ticks() - timeSinceSceneChange > 100:
         currentScene = backStack.pop()
     if easyButton.draw(screen) and time.get_ticks() - timeSinceSceneChange > 100:
