@@ -286,7 +286,30 @@ def easyGameScene(currentScene):
 
                 if enemyGrid[row][column] != tempEnemyGrid[row][column] and isAttackablePlayer:
                     enemyGrid[row][column] = button.Button(50 * row + size[0] / 1.5, 50 * column + size[1] / 3, orange_Circle, 50, 50)
+                    enemyShipStorer[row][column] += 10
                     turn = 2
+                    counter5L = 0
+                    counter4L = 0
+                    counter3L = 0
+                    counter2L = 0
+                    counter2L2 = 0
+                    for i in range(10):
+                        for j in range(10):
+                            if enemyShipStorer[i][j] == 15:
+                                counter5L += 1
+                            elif enemyShipStorer[i][j] == 14:
+                                counter4L += 1
+                            elif enemyShipStorer[i][j] == 13:
+                                counter3L += 1
+                            elif enemyShipStorer[i][j] == 12:
+                                counter2L += 1
+                            elif enemyShipStorer[i][j] == 11:
+                                counter2L2 += 1
+                    if counter5L == 5:
+                        for i in range(10):
+                            for j in range(10):
+                                if enemyShipStorer[i][j] == 15:
+                                    enemyGrid = button.Button(50 * row + size[0] / 1.5, 50 * column + size[1] / 3, black_Square, 50, 50)
                 elif enemyGrid[row][column] == tempEnemyGrid[row][column] and isAttackablePlayer:
                     enemyGrid[row][column] = button.Button(50 * row + size[0] / 1.5, 50 * column + size[1] / 3, red_cross, 50, 50)
                     turn = 2
