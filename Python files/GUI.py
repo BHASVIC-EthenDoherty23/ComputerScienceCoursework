@@ -37,6 +37,7 @@ attacked_Ship = pygame.image.load('Images/attackedShip.png').convert_alpha() # l
 main_Title = pygame.image.load('Images/mainTitle.png').convert_alpha() # loads the mainTitle image
 select_Difficulty = pygame.image.load('Images/selectDifficulty.png').convert_alpha()
 rotation_Button = pygame.image.load('Images/rotationButton.png').convert_alpha()
+black_Square = pygame.image.load('Images/blackSquare.png').convert_alpha()
 
 #create buttons using button class
 startButton = button.Button(size[0] / 2.5, size[1] * 0.2, start_Button, 450, 150)
@@ -57,6 +58,7 @@ playerGrid = [[grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, 
 enemyGrid = [[grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square]]
 playerShipStorer = [[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0]]
 enemyShipStorer = [[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0]]
+
 
 for i in range(10):
     for j in range(10):
@@ -110,6 +112,15 @@ def resetShipLists():
     enemyShips.append(es3Ship)
     enemyShips.append(es4Ship)
     enemyShips.append(es5Ship)
+
+    playerShipStorer = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
+    enemyShipStorer = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
 
     #Resets both lists so that the player and computer can attack in new games
     for i in range(len(chosenAttacks)):
@@ -348,6 +359,55 @@ def easyGameScene(currentScene):
                     playerGrid[randomRow][randomColumn] = button.Button(50 * randomRow + size[0] / 5, 50 * randomColumn + size[1] / 3, attacked_Ship , 50,50)
                     turn = 1
                     timeSinceSceneChange = time.get_ticks()
+                    playerShipStorer[randomRow][randomColumn] += 10
+                    counter5L = 0
+                    counter4L = 0
+                    counter3L = 0
+                    counter2L = 0
+                    counter2L2 = 0
+                    for i in range(10):
+                        for j in range(10):
+                            if playerShipStorer[i][j] == 15:
+                                counter5L += 1
+                            elif playerShipStorer[i][j] == 14:
+                                counter4L += 1
+                            elif playerShipStorer[i][j] == 13:
+                                counter3L += 1
+                            elif playerShipStorer[i][j] == 12:
+                                counter2L += 1
+                            elif playerShipStorer[i][j] == 11:
+                                counter2L2 += 1
+                    if counter5L == 5:
+                        for i in range(10):
+                            for j in range(10):
+                                if playerShipStorer[i][j] == 15:
+                                    playerGrid[i][j] = button.Button(50 * i + size[0] / 5, 50 * j + size[1] / 3,
+                                                                    black_Square, 50, 50)
+                    if counter4L == 4:
+                        for i in range(10):
+                            for j in range(10):
+                                if playerShipStorer[i][j] == 14:
+                                    playerGrid[i][j] = button.Button(50 * i + size[0] / 5, 50 * j + size[1] / 3,
+                                                                    black_Square, 50, 50)
+                    if counter3L == 3:
+                        for i in range(10):
+                            for j in range(10):
+                                if playerShipStorer[i][j] == 13:
+                                    playerGrid[i][j] = button.Button(50 * i + size[0] / 5, 50 * j + size[1] / 3,
+                                                                    black_Square, 50, 50)
+                    if counter2L == 2:
+                        for i in range(10):
+                            for j in range(10):
+                                if playerShipStorer[i][j] == 12:
+                                    playerGrid[i][j] = button.Button(50 * i + size[0] / 5, 50 * j + size[1] / 3,
+                                                                    black_Square, 50, 50)
+                    if counter2L2 == 2:
+                        for i in range(10):
+                            for j in range(10):
+                                if playerShipStorer[i][j] == 11:
+                                    playerGrid[i][j] = button.Button(50 * i + size[0] / 5, 50 * j + size[1] / 3,
+                                                                    black_Square, 50, 50)
+
                 elif playerGrid[randomRow][randomColumn] == tempPlayerGrid[randomRow][randomColumn] and isAttackable:
                     playerGrid[randomRow][randomColumn] = button.Button(50 * randomRow + size[0] / 5, 50 * randomColumn + size[1] / 3, red_cross, 50,50)
                     turn = 1
