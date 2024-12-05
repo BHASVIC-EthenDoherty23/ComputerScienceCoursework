@@ -309,7 +309,27 @@ def easyGameScene(currentScene):
                         for i in range(10):
                             for j in range(10):
                                 if enemyShipStorer[i][j] == 15:
-                                    enemyGrid = button.Button(50 * row + size[0] / 1.5, 50 * column + size[1] / 3, black_Square, 50, 50)
+                                    enemyGrid[i][j] = button.Button(50 * i + size[0] / 1.5, 50 * j + size[1] / 3, black_Square, 50, 50)
+                    if counter4L == 4:
+                        for i in range(10):
+                            for j in range(10):
+                                if enemyShipStorer[i][j] == 14:
+                                    enemyGrid[i][j] = button.Button(50 * i + size[0] / 1.5, 50 * j + size[1] / 3, black_Square, 50, 50)
+                    if counter3L == 3:
+                        for i in range(10):
+                            for j in range(10):
+                                if enemyShipStorer[i][j] == 13:
+                                    enemyGrid[i][j] = button.Button(50 * i + size[0] / 1.5, 50 * j + size[1] / 3, black_Square, 50, 50)
+                    if counter2L == 2:
+                        for i in range(10):
+                            for j in range(10):
+                                if enemyShipStorer[i][j] == 12:
+                                    enemyGrid[i][j] = button.Button(50 * i + size[0] / 1.5, 50 * j + size[1] / 3, black_Square, 50, 50)
+                    if counter2L2 == 2:
+                        for i in range(10):
+                            for j in range(10):
+                                if enemyShipStorer[i][j] == 11:
+                                    enemyGrid[i][j] = button.Button(50 * i + size[0] / 1.5, 50 * j + size[1] / 3, black_Square, 50, 50)
                 elif enemyGrid[row][column] == tempEnemyGrid[row][column] and isAttackablePlayer:
                     enemyGrid[row][column] = button.Button(50 * row + size[0] / 1.5, 50 * column + size[1] / 3, red_cross, 50, 50)
                     turn = 2
