@@ -18,7 +18,7 @@ screen = pygame.display.set_mode(size)
 #load images/backgrounds
 defaultBackgroundColor = 27, 27, 237  #Dark Blue like the ocean
 start_Button = pygame.image.load('Images/StartButton.png').convert_alpha()  #loads the StartButton image
-settings_Button = pygame.image.load('Images/settingButton.png').convert_alpha()  #loads the SettingsButton image
+settings_Button = pygame.image.load('Images/SettingsButton.png').convert_alpha()  #loads the SettingsButton image
 statistics_Button = pygame.image.load('Images/statisticButton.png').convert_alpha()  #loads the StatisticsButton image
 exit_Button = pygame.image.load('Images/ExitButton.png').convert_alpha()  # loads the ExitButton image
 back_Button = pygame.image.load('Images/back.png').convert_alpha()  #loads the back button image
