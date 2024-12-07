@@ -266,7 +266,7 @@ def easyGameScene(currentScene):
                     if not overridesShip:
                         for k in range(current_ship.getSize()):
                             enemyGrid[randomRow + k][randomColumn] = button.Button(50 * (randomRow + k) + size[0] / 1.5, 50 * randomColumn + size[1] / 3, grid_Square, 50,50)  # for loop that changes the image to the current ships image
-
+                            enemyShipStorer[randomRow + k][randomColumn] = shipNum
                     else:
                         enemyShips.append(current_ship)
                 elif current_ship.checkSize(randomColumn) and direction == "down":  # same as prior if, but does down instead of right
