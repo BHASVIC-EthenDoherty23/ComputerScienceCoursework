@@ -345,7 +345,7 @@ def easyGameScene(currentScene):
                     enemyGrid[row][column] = button.Button(50 * row + size[0] / 1.5, 50 * column + size[1] / 3, red_cross, 50, 50)
                     turn = 2
                 timeSinceSceneChange = time.get_ticks()
-            if turn == 2:
+            if turn == 2 and time.get_ticks() - timeSinceSceneChange > 1000:
                 isAttackable = True
                 randomRow = random_integers(0, 9)
                 randomColumn = random_integers(0, 9)
