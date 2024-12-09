@@ -231,7 +231,7 @@ def easyGameScene(currentScene):
                                 playerShipStorer[row + k][column] = shipNum
                         else:
                             friendlyShips.append(current_ship)
-                    elif current_ship.checkSize(column-1) and direction == "down": # same as prior if but does down instead of right
+                    elif current_ship.checkSize(column) and direction == "down": # same as prior if but does down instead of right
                         overridesShip = False
                         for k in range(current_ship.getSize()):
                             if not playerGrid[row][column + k] == tempPlayerGrid[row][column + k]:
@@ -243,7 +243,7 @@ def easyGameScene(currentScene):
                         else:
                             friendlyShips.append(current_ship)
                     if len(friendlyShips) == 0:
-                        turn =  0  # if there are no more ships to place, the turn changes to 1
+                        turn = 0  # if there are no more ships to place, the turn changes to 1
 
             if turn == 0:
                 current_ship = enemyShips.pop()
