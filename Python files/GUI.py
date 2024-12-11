@@ -243,7 +243,7 @@ def easyGameScene(currentScene):
                         else:
                             friendlyShips.append(current_ship)
                     else:
-                        friendlyShips.append(current_ship)
+                       friendlyShips.append(current_ship)
                     if len(friendlyShips) == 0:
                         turn = 0  # if there are no more ships to place, the turn changes to 1
 
@@ -428,31 +428,229 @@ def easyGameScene(currentScene):
 
 
 def mediumGameScene(currentScene):
-    global backStack
+    global backStack, playerGrid
     global timeSinceSceneChange
     global turn
-    global ships
+    global direction
     screen.fill(defaultBackgroundColor)
-    for i in range(10):
-        for j in range(10):
-            if playerGrid[i][j].draw(screen) and time.get_ticks() - timeSinceSceneChange > 100:
-                if turn == -1:
-                    playerGrid[i][j] = button.Button(50*i + size[0] / 5, 50*j + size[1]/ 3, red_cross, 50, 50)
-            if enemyGrid[i][j].draw(screen) and time.get_ticks() - timeSinceSceneChange > 100:
-                if turn == 1 and enemyShip:
-                    enemyGrid[i][j] = button.Button(50*i + size[0] / 1.5, 50*j + size[1]/ 3, red_cross, 50, 50)
-                if turn == 1 and not enemyShip:
-                    enemyGrid[i][j] = button.Button(50*i + size[0] / 1.5, 50*j + size[1]/ 3, orange_Circle, 50, 50)
+    for row in range(10):
+        for column in range(10):
+            if turn == -1 and rotationButton.draw(screen) and time.get_ticks() - timeSinceSceneChange > 100:
+                if direction == "right":
+                    direction = "down"
+                else:
+                    direction = "right"
+            if playerGrid[row][column].draw(screen) and time.get_ticks() - timeSinceSceneChange > 100: # checks if the individual grid cell has been clicked
+                timeSinceSceneChange = time.get_ticks()
+                if turn == -1: # checks if its the ship placing turn
+                    current_ship = friendlyShips.pop() # sets current_ship to the last
+                    shipNum = len(friendlyShips) + 1
+                    if current_ship.checkSize(row-1) and direction == "right": # checks if the selected cell is valid to place a ship of that size and direction
+                        overridesShip = False
+                        for k in range(current_ship.getSize()):
+                            if not playerGrid[row + k][column] == tempPlayerGrid[row + k][column]:
+                                overridesShip = True
+                        if not overridesShip:
+                            for k in range(current_ship.getSize()):
+                                playerGrid[row + k][column] = button.Button(50 * (row+k) + size[0] / 5, 50 * column + size[1] / 3, current_ship.getImage(), 50, 50) # for loop that changes the image to the current ships image
+                                playerShipStorer[row + k][column] = shipNum
+                        else:
+                            friendlyShips.append(current_ship)
+                    elif current_ship.checkSize(column-1) and direction == "down": # same as prior if but does down instead of right
+                        overridesShip = False
+                        for k in range(current_ship.getSize()):
+                            if not playerGrid[row][column + k] == tempPlayerGrid[row][column + k]:
+                                overridesShip = True
+                        if not overridesShip:
+                            for k in range(current_ship.getSize()):
+                                playerGrid[row][column + k] = button.Button(50 * row + size[0] / 5, 50 * (column + k) + size[1] / 3, current_ship.getImage(), 50,50)  # for loop that changes the image to the current ships image
+                                playerShipStorer[row][column + k] = shipNum
+                        else:
+                            friendlyShips.append(current_ship)
+                    else:
+                        friendlyShips.append(current_ship)
+                    if len(friendlyShips) == 0:
+                        turn = 0  # if there are no more ships to place, the turn changes to 1
 
-        if backButton.draw(screen) and  time.get_ticks() - timeSinceSceneChange > 100:
+            if turn == 0:
+                current_ship = enemyShips.pop()
+
+                randomRow = random_integers(0, 9)
+                randomColumn = random_integers(0, 9)
+                randomDirection = random_integers(0, 1)
+                shipNum = len(enemyShips) + 1
+                if randomDirection == 0:
+                    direction = "down"
+                else:
+                    direction = "right"
+
+                if current_ship.checkSize(randomRow - 1) and direction == "right":  # checks if the selected cell is valid to place a ship of that size and direction
+                    timeSinceSceneChange = time.get_ticks()
+                    overridesShip = False
+                    for k in range(current_ship.getSize()):
+                        if not enemyGrid[randomRow + k][randomColumn] == tempEnemyGrid[randomRow + k][randomColumn]:
+                            overridesShip = True
+                    if not overridesShip:
+                        for k in range(current_ship.getSize()):
+                            enemyGrid[randomRow + k][randomColumn] = button.Button(50 * (randomRow + k) + size[0] / 1.5, 50 * randomColumn + size[1] / 3, grid_Square, 50,50)  # for loop that changes the image to the current ships image
+                            enemyShipStorer[randomRow + k][randomColumn] = shipNum
+                    else:
+                        enemyShips.append(current_ship)
+                elif current_ship.checkSize(randomColumn) and direction == "down":  # same as prior if, but does down instead of right
+                    overridesShip = False
+                    for k in range(current_ship.getSize()):
+                        if not enemyGrid[randomRow][randomColumn + k] == tempEnemyGrid[randomRow][randomColumn + k]:
+                            overridesShip = True
+                    if not overridesShip:
+                        for k in range(current_ship.getSize()):
+                            enemyGrid[randomRow][randomColumn + k] = button.Button(50 * randomRow + size[0] / 1.5, 50 * (randomColumn + k) + size[1] / 3, grid_Square, 50,50)  # for loop that changes the image to the current ships image
+                            enemyShipStorer[randomRow][randomColumn + k] = shipNum
+                    else:
+                        enemyShips.append(current_ship)
+
+                else:
+                    enemyShips.append(current_ship)  # if the other 2 if statements fail, it reappends the ship to allow the user to retry
+                if len(enemyShips) == 0:
+                    turn = 1
+            if enemyGrid[row][column].draw(screen) and time.get_ticks() - timeSinceSceneChange > 100 and turn == 1:
+                isAttackablePlayer = True
+                timeSinceSceneChange = time.get_ticks()
+                for i in range(len(chosenAttacksPlayer)):
+                    if chosenAttacksPlayer[i] == (row,column):
+                        isAttackablePlayer = False
+
+                if isAttackablePlayer:
+                    chosenAttacksPlayer.append((row,column))
+
+                if enemyGrid[row][column] != tempEnemyGrid[row][column] and isAttackablePlayer:
+                    enemyGrid[row][column] = button.Button(50 * row + size[0] / 1.5, 50 * column + size[1] / 3, orange_Circle, 50, 50)
+                    enemyShipStorer[row][column] += 10
+                    turn = 2
+                    counter5L = 0
+                    counter4L = 0
+                    counter3L = 0
+                    counter2L = 0
+                    counter2L2 = 0
+                    for i in range(10):
+                        for j in range(10):
+                            if enemyShipStorer[i][j] == 15:
+                                counter5L += 1
+                            elif enemyShipStorer[i][j] == 14:
+                                counter4L += 1
+                            elif enemyShipStorer[i][j] == 13:
+                                counter3L += 1
+                            elif enemyShipStorer[i][j] == 12:
+                                counter2L += 1
+                            elif enemyShipStorer[i][j] == 11:
+                                counter2L2 += 1
+                    if counter5L == 5:
+                        for i in range(10):
+                            for j in range(10):
+                                if enemyShipStorer[i][j] == 15:
+                                    enemyGrid[i][j] = button.Button(50 * i + size[0] / 1.5, 50 * j + size[1] / 3, black_Square, 50, 50)
+                    if counter4L == 4:
+                        for i in range(10):
+                            for j in range(10):
+                                if enemyShipStorer[i][j] == 14:
+                                    enemyGrid[i][j] = button.Button(50 * i + size[0] / 1.5, 50 * j + size[1] / 3, black_Square, 50, 50)
+                    if counter3L == 3:
+                        for i in range(10):
+                            for j in range(10):
+                                if enemyShipStorer[i][j] == 13:
+                                    enemyGrid[i][j] = button.Button(50 * i + size[0] / 1.5, 50 * j + size[1] / 3, black_Square, 50, 50)
+                    if counter2L == 2:
+                        for i in range(10):
+                            for j in range(10):
+                                if enemyShipStorer[i][j] == 12:
+                                    enemyGrid[i][j] = button.Button(50 * i + size[0] / 1.5, 50 * j + size[1] / 3, black_Square, 50, 50)
+                    if counter2L2 == 2:
+                        for i in range(10):
+                            for j in range(10):
+                                if enemyShipStorer[i][j] == 11:
+                                    enemyGrid[i][j] = button.Button(50 * i + size[0] / 1.5, 50 * j + size[1] / 3, black_Square, 50, 50)
+                elif enemyGrid[row][column] == tempEnemyGrid[row][column] and isAttackablePlayer:
+                    enemyGrid[row][column] = button.Button(50 * row + size[0] / 1.5, 50 * column + size[1] / 3, red_cross, 50, 50)
+                    turn = 2
+                timeSinceSceneChange = time.get_ticks()
+            if turn == 2 and time.get_ticks() - timeSinceSceneChange > 1000:
+                isAttackable = True
+                randomRow = random_integers(0, 9)
+                randomColumn = random_integers(0, 9)
+                for i in range(len(chosenAttacks)):
+                    if chosenAttacks[i] == (randomRow, randomColumn):
+                        isAttackable = False
+                if isAttackable:
+                    chosenAttacks.append((randomRow, randomColumn))
+
+                if playerGrid[randomRow][randomColumn] != tempPlayerGrid[randomRow][randomColumn] and isAttackable:
+                    playerGrid[randomRow][randomColumn] = button.Button(50 * randomRow + size[0] / 5, 50 * randomColumn + size[1] / 3, attacked_Ship , 50,50)
+                    turn = 1
+                    timeSinceSceneChange = time.get_ticks()
+                    playerShipStorer[randomRow][randomColumn] += 10
+                    counter5L = 0
+                    counter4L = 0
+                    counter3L = 0
+                    counter2L = 0
+                    counter2L2 = 0
+                    for i in range(10):
+                        for j in range(10):
+                            if playerShipStorer[i][j] == 15:
+                                counter5L += 1
+                            elif playerShipStorer[i][j] == 14:
+                                counter4L += 1
+                            elif playerShipStorer[i][j] == 13:
+                                counter3L += 1
+                            elif playerShipStorer[i][j] == 12:
+                                counter2L += 1
+                            elif playerShipStorer[i][j] == 11:
+                                counter2L2 += 1
+                    if counter5L == 5:
+                        for i in range(10):
+                            for j in range(10):
+                                if playerShipStorer[i][j] == 15:
+                                    playerGrid[i][j] = button.Button(50 * i + size[0] / 5, 50 * j + size[1] / 3,
+                                                                     black_Square, 50, 50)
+                    if counter4L == 4:
+                        for i in range(10):
+                            for j in range(10):
+                                if playerShipStorer[i][j] == 14:
+                                    playerGrid[i][j] = button.Button(50 * i + size[0] / 5, 50 * j + size[1] / 3,
+                                                                     black_Square, 50, 50)
+                    if counter3L == 3:
+                        for i in range(10):
+                            for j in range(10):
+                                if playerShipStorer[i][j] == 13:
+                                    playerGrid[i][j] = button.Button(50 * i + size[0] / 5, 50 * j + size[1] / 3,
+                                                                     black_Square, 50, 50)
+                    if counter2L == 2:
+                        for i in range(10):
+                            for j in range(10):
+                                if playerShipStorer[i][j] == 12:
+                                    playerGrid[i][j] = button.Button(50 * i + size[0] / 5, 50 * j + size[1] / 3,
+                                                                     black_Square, 50, 50)
+                    if counter2L2 == 2:
+                        for i in range(10):
+                            for j in range(10):
+                                if playerShipStorer[i][j] == 11:
+                                    playerGrid[i][j] = button.Button(50 * i + size[0] / 5, 50 * j + size[1] / 3,
+                                                                     black_Square, 50, 50)
+
+                elif playerGrid[randomRow][randomColumn] == tempPlayerGrid[randomRow][randomColumn] and isAttackable:
+                    playerGrid[randomRow][randomColumn] = button.Button(50 * randomRow + size[0] / 5, 50 * randomColumn + size[1] / 3, red_cross, 50,50)
+                    turn = 1
+                    timeSinceSceneChange = time.get_ticks()
+        if backButton.draw(screen) and time.get_ticks() - timeSinceSceneChange > 100:
             currentScene = backStack.pop()
+            turn = -1
             resetShipLists()
-            for i in range(10):
-                for j in range(10):
-                    playerGrid[i][j] = tempPlayerGrid[i][j]
-                    enemyGrid[i][j] = tempEnemyGrid[i][j]
+            for row in range(10):
+                for column in range(10):
+                    playerGrid[row][column] = tempPlayerGrid[row][column]
+                    enemyGrid[row][column] = tempEnemyGrid[row][column]
+            timeSinceSceneChange = time.get_ticks()
 
     return currentScene
+
 
 def hardGameScene(currentScene):
     global backStack
