@@ -242,6 +242,8 @@ def easyGameScene(currentScene):
                                 playerShipStorer[row][column + k] = shipNum
                         else:
                             friendlyShips.append(current_ship)
+                    else:
+                        friendlyShips.append(current_ship)
                     if len(friendlyShips) == 0:
                         turn = 0  # if there are no more ships to place, the turn changes to 1
 
