@@ -44,44 +44,27 @@ scale_Multi_Up = pygame.image.load('Images/scaleMultiUp.png').convert_alpha()
 scale_Multi_Down = pygame.image.load('Images/scaleMultiDown.png').convert_alpha()
 
 scaleMulti = 1 #used to scale GUI buttons
+
 #create buttons using button class
-def buttonMaker():
-    startButton = button.Button(size[0] / 2.5, size[1] * 0.2, start_Button, 450 * scaleMulti, 150 * scaleMulti)
-    settingsButton = button.Button(size[0] / 2.5, size[1] * 0.4, settings_Button, 450 * scaleMulti, 150 * scaleMulti)
-    statisticsButton = button.Button(size[0] / 2.5, size[1] * 0.6, statistics_Button, 450 * scaleMulti,
-                                     150 * scaleMulti)
-    exitButton = button.Button(size[0] / 2.5, size[1] * 0.8, exit_Button, 450 * scaleMulti, 150 * scaleMulti)
-    backButton = button.Button(0, 0, back_Button, 600 * scaleMulti, 200 * scaleMulti)
-    easyButton = button.Button(size[0] / 2.5, size[1] * 0.2, easy_Button, 450 * scaleMulti, 150 * scaleMulti)
-    mediumButton = button.Button(size[0] / 2.5, size[1] * 0.4, medium_Button, 450 * scaleMulti, 150 * scaleMulti)
-    hardButton = button.Button(size[0] / 2.5, size[1] * 0.6, hard_Button, 450 * scaleMulti, 150 * scaleMulti)
-    mainTitle = button.Button(size[0] / 2.7, size[1] * 0.02, main_Title, 600 * scaleMulti, 200 * scaleMulti)
-    selectDifficulty = button.Button(size[0] / 2.7, size[1] * 0.02, select_Difficulty, 600 * scaleMulti,
-                                     200 * scaleMulti)
-    rotationButton = button.Button(size[0] / 4, size[1] * 0.02, rotation_Button, 600 * scaleMulti, 200 * scaleMulti)
-    scaleMultiDown = button.Button(size[0] / 2.5 + (150 * scaleMulti), size[1] * 0.1, scale_Multi_Down, 50 * scaleMulti,
-                                   50 * scaleMulti)
-    scaleMultiUp = button.Button(size[0] / 2.5 + (150 * scaleMulti), size[1] * 0.2, scale_Multi_Down, 50 * scaleMulti,
-                                 50 * scaleMulti)
-    scaleMultiText = button.Button(size[0] / 2.5 + (150 * scaleMulti), size[1] * 0.1, scale_Multi_Down, 50 * scaleMulti,
-                                   50 * scaleMulti)
-
-
-
-startButton = button.Button(size[0] / (2.5*scaleMulti), size[1] * scaleMulti * 0.2, start_Button, 450*scaleMulti, 150*scaleMulti)
-settingsButton = button.Button(size[0] / 2.5, size[1] * 0.4, settings_Button, 450*scaleMulti, 150*scaleMulti)
-statisticsButton = button.Button(size[0] / 2.5, size[1] * 0.6, statistics_Button, 450*scaleMulti, 150*scaleMulti)
-exitButton = button.Button(size[0] / 2.5, size[1] * 0.8, exit_Button, 450*scaleMulti, 150*scaleMulti)
-backButton = button.Button(0, 0, back_Button, 600*scaleMulti, 200*scaleMulti)
-easyButton = button.Button(size[0] / 2.5, size[1] * 0.2, easy_Button, 450*scaleMulti, 150*scaleMulti)
-mediumButton = button.Button(size[0] / 2.5, size[1] * 0.4, medium_Button, 450*scaleMulti, 150*scaleMulti)
-hardButton = button.Button(size[0] / 2.5, size[1] * 0.6, hard_Button, 450*scaleMulti, 150*scaleMulti)
-mainTitle = button.Button(size[0] /2.7, size[1] * 0.02, main_Title, 600*scaleMulti, 200*scaleMulti)
-selectDifficulty = button.Button(size[0] /2.7, size[1] * 0.02, select_Difficulty, 600*scaleMulti, 200*scaleMulti)
-rotationButton = button.Button(size[0] / 4, size[1] * 0.02, rotation_Button, 600*scaleMulti, 200*scaleMulti)
-scaleMultiDown = button.Button(size[0] / 2.5 + (150*scaleMulti), size [1] * 0.1, scale_Multi_Down, 50*scaleMulti, 50*scaleMulti)
-scaleMultiUp = button.Button(size[0] / 2.5, size [1] * 0.2, scale_Multi_Down, 150*scaleMulti, 50*scaleMulti)
-scaleMultiText = button.Button(size[0] / 2.5 + (150*scaleMulti), size [1] * 0.1, scale_Multi_Down, 50*scaleMulti, 50*scaleMulti)
+startButton = button.Button(size[0] / 2.5, size[1] * 0.2, start_Button,
+                            450 * scaleMulti, 150 * scaleMulti)
+settingsButton = button.Button(size[0] / 2.5, size[1] * 0.4, settings_Button, 450 * scaleMulti, 150 * scaleMulti)
+statisticsButton = button.Button(size[0] / 2.5, size[1] * 0.6, statistics_Button, 450 * scaleMulti,
+                                 150 * scaleMulti)
+exitButton = button.Button(size[0] / 2.5, size[1] * 0.8, exit_Button, 450 * scaleMulti, 150 * scaleMulti)
+backButton = button.Button(0, 0, back_Button, 600 * scaleMulti, 200 * scaleMulti)
+easyButton = button.Button(size[0] / 2.5, size[1] * 0.2, easy_Button, 450 * scaleMulti, 150 * scaleMulti)
+mediumButton = button.Button(size[0] / 2.5, size[1] * 0.4, medium_Button, 450 * scaleMulti, 150 * scaleMulti)
+hardButton = button.Button(size[0] / 2.5, size[1] * 0.6, hard_Button, 450 * scaleMulti, 150 * scaleMulti)
+mainTitle = button.Button(size[0] / 2.7, size[1] * 0.02, main_Title, 600 * scaleMulti, 200 * scaleMulti)
+selectDifficulty = button.Button(size[0] / 2.7, size[1] * 0.02, select_Difficulty, 600 * scaleMulti,
+                                 200 * scaleMulti)
+rotationButton = button.Button(size[0] / 4, size[1] * 0.02, rotation_Button, 600 * scaleMulti, 200 * scaleMulti)
+scaleMultiDown = button.Button(size[0] / 2.5 + (450 * scaleMulti), size[1] * 0.1 + 75 * scaleMulti,
+                               scale_Multi_Down, 75 * scaleMulti, 75 * scaleMulti)
+scaleMultiUp = button.Button(size[0] / 2.5 + (450 * scaleMulti), size[1] * 0.1, scale_Multi_Up, 75 * scaleMulti,
+                             75 * scaleMulti)
+scaleMultiText = button.Button(size[0] / 2.5, size[1] * 0.1, scale_Multi_Text, 450 * scaleMulti, 150 * scaleMulti)
 
 
 
@@ -223,6 +206,43 @@ def playMenuScene(currentScene):
     return currentScene
 
 
+def scaleButtons():
+    global startButton
+    global settingsButton
+    global statisticsButton
+    global exitButton
+    global backButton
+    global easyButton
+    global mediumButton
+    global hardButton
+    global selectDifficulty
+    global rotationButton
+    global mainTitle
+    global scaleMultiText
+    global scaleMultiUp
+    global scaleMultiDown
+
+    startButton = button.Button(size[0] / 2.5, size[1] * 0.2, start_Button,
+                                450 * scaleMulti, 150 * scaleMulti)
+    settingsButton = button.Button(size[0] / 2.5, size[1] * 0.4, settings_Button, 450 * scaleMulti, 150 * scaleMulti)
+    statisticsButton = button.Button(size[0] / 2.5, size[1] * 0.6, statistics_Button, 450 * scaleMulti,
+                                     150 * scaleMulti)
+    exitButton = button.Button(size[0] / 2.5, size[1] * 0.8, exit_Button, 450 * scaleMulti, 150 * scaleMulti)
+    backButton = button.Button(0, 0, back_Button, 600 * scaleMulti, 200 * scaleMulti)
+    easyButton = button.Button(size[0] / 2.5, size[1] * 0.2, easy_Button, 450 * scaleMulti, 150 * scaleMulti)
+    mediumButton = button.Button(size[0] / 2.5, size[1] * 0.4, medium_Button, 450 * scaleMulti, 150 * scaleMulti)
+    hardButton = button.Button(size[0] / 2.5, size[1] * 0.6, hard_Button, 450 * scaleMulti, 150 * scaleMulti)
+    mainTitle = button.Button(size[0] / 2.7, size[1] * 0.02, main_Title, 600 * scaleMulti, 200 * scaleMulti)
+    selectDifficulty = button.Button(size[0] / 2.7, size[1] * 0.02, select_Difficulty, 600 * scaleMulti,
+                                     200 * scaleMulti)
+    rotationButton = button.Button(size[0] / 4, size[1] * 0.02, rotation_Button, 600 * scaleMulti, 200 * scaleMulti)
+    scaleMultiDown = button.Button(size[0] / 2.5 + (450 * scaleMulti), size[1] * 0.1 + 75 * scaleMulti,
+                                   scale_Multi_Down, 75 * scaleMulti, 75 * scaleMulti)
+    scaleMultiUp = button.Button(size[0] / 2.5 + (450 * scaleMulti), size[1] * 0.1, scale_Multi_Up, 75 * scaleMulti,
+                                 75 * scaleMulti)
+    scaleMultiText = button.Button(size[0] / 2.5, size[1] * 0.1, scale_Multi_Text, 450 * scaleMulti, 150 * scaleMulti)
+
+
 def settingsMenuScene(currentScene):
     screen.fill(defaultBackgroundColor)
     global backStack
@@ -230,10 +250,14 @@ def settingsMenuScene(currentScene):
     global scaleMulti
     screen.fill(defaultBackgroundColor)  # fills screen to remove all old scene
     scaleMultiText.draw(screen)
-    if scaleMultiUp.draw(screen) and scaleMulti < 1.5:
+    if scaleMultiUp.draw(screen) and scaleMulti < 1.5 and time.get_ticks() - timeSinceSceneChange > 100:
         scaleMulti += 0.05
-    if scaleMultiDown.draw(screen) and scaleMulti > 0.5:
+        scaleButtons()
+        timeSinceSceneChange = time.get_ticks()
+    if scaleMultiDown.draw(screen) and scaleMulti > 0.5 and time.get_ticks() - timeSinceSceneChange > 100:
         scaleMulti -= 0.05
+        scaleButtons()
+        timeSinceSceneChange = time.get_ticks()
     if backButton.draw(screen) and time.get_ticks() - timeSinceSceneChange > 100:
         currentScene = backStack.pop()
     return currentScene
@@ -768,18 +792,6 @@ def hardGameScene(currentScene):
 #game loop
 run = True
 while run:
-    buttonMaker()
-    global startButton
-    global settingsButton
-    global statisticsButton
-    global exitButton
-    global backButton
-    global easyButton
-    global mediumButton
-    global hardButton
-    global mainTitle
-    global selectDifficulty
-    global rotationButton
     print(backStack, "back stack")
     if currentScene == "mainMenu":
         print(currentScene)
