@@ -60,7 +60,10 @@ purple_Ship = pygame.image.load('Images/purpleSquare.png').convert_alpha() # loa
 navy_Blue_Square = pygame.image.load('Images/navyBlueSquare.png').convert_alpha()
 baby_Blue_Square = pygame.image.load('Images/babyBlueSquare.png').convert_alpha()
 dark_Green_Square = pygame.image.load('Images/darkGreenSquare.png').convert_alpha()
+lime_Square = pygame.image.load('Images/limeSquare.png').convert_alpha()
 
+shipColourList = [green_Ship, blue_Ship, pink_Ship, orange_Ship, yellow_Ship, attacked_Ship, black_Square, purple_Ship, navy_Blue_Square, baby_Blue_Square, dark_Green_Square, lime_Square]
+currentColourList = [1, 2, 4, 3 , 5 , 6 , 7]
 
 
 orange_Circle = pygame.image.load('Images/orangeCircle.png').convert_alpha() # loads the orange_Circle image
@@ -77,6 +80,10 @@ scale_Multi_Text = pygame.image.load('Images/scaleMultiText.png').convert_alpha(
 
 scale_Multi_Up = pygame.image.load('Images/scaleMultiUp.png').convert_alpha()
 scale_Multi_Down = pygame.image.load('Images/scaleMultiDown.png').convert_alpha()
+
+colour_Change_Button = pygame.image.load('Images/colourChangeButton.png').convert_alpha()
+colour_Change_Text_1 = pygame.image.load('Images/colourChangeText1.png').convert_alpha()
+colour_Change_Up = pygame.image.load('Images/scaleMultiUp.png').convert_alpha()
 
 scaleMulti = 1 #used to scale GUI buttons
 
@@ -101,7 +108,10 @@ scaleMultiUp = button.Button(size[0] / 2.5 + (450 * scaleMulti), size[1] * 0.1, 
                              75 * scaleMulti)
 scaleMultiText = button.Button(size[0] / 2.5, size[1] * 0.1, scale_Multi_Text, 450 * scaleMulti, 150 * scaleMulti)
 
+colourChangeText1 = button.Button(size[0] / 2.5, size[1] * 0.1, colour_Change_Text_1, 450 * scaleMulti, 150 * scaleMulti)
 
+colourChangeUp = button.Button(size[0] / 2.5, size[1] * 0.1, colour_Change_Up, 450 * scaleMulti, 150 * scaleMulti)
+colourChangeButton = button.Button(size[0] / 2.5, size[1] * 0.2, colour_Change_Button, 450 * scaleMulti, 150 * scaleMulti)
 
 tempPlayerGrid = [[grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square]]
 tempEnemyGrid = [[grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square]]
@@ -241,7 +251,7 @@ def playMenuScene(currentScene):
     return currentScene
 
 
-def scaleButtons():
+def updateButtons():
     global startButton
     global settingsButton
     global statisticsButton
@@ -279,7 +289,6 @@ def scaleButtons():
 
 
 def settingsMenuScene(currentScene):
-    screen.fill(defaultBackgroundColor)
     global backStack
     global timeSinceSceneChange
     global scaleMulti
@@ -287,12 +296,17 @@ def settingsMenuScene(currentScene):
     scaleMultiText.draw(screen)
     if scaleMultiUp.draw(screen) and scaleMulti < 1.5 and time.get_ticks() - timeSinceSceneChange > 100:
         scaleMulti += 0.05
-        scaleButtons()
+        updateButtons()
         timeSinceSceneChange = time.get_ticks()
     if scaleMultiDown.draw(screen) and scaleMulti > 0.5 and time.get_ticks() - timeSinceSceneChange > 100:
         scaleMulti -= 0.05
-        scaleButtons()
+        updateButtons()
         timeSinceSceneChange = time.get_ticks()
+
+    if colourChangeButton.draw(screen) and time.get_ticks() - timeSinceSceneChange > 100:
+        backStack.append(currentScene)
+        currentScene = "colourChangeScene"
+
     if backButton.draw(screen) and time.get_ticks() - timeSinceSceneChange > 100:
         currentScene = backStack.pop()
     return currentScene
@@ -824,6 +838,24 @@ def hardGameScene(currentScene):
     return currentScene
 
 
+def changeColourScene(currentScene):
+    global backStack
+    global timeSinceSceneChange
+    global scaleMulti
+    screen.fill(defaultBackgroundColor)  # fills screen to remove all old scene
+    colourChangeText1.draw(screen)
+    button.Button(1000, 1000, shipColourList[currentColourList[0]], 600 * scaleMulti, 200 * scaleMulti).draw(screen)
+    if colourChangeUp.draw(screen) and time.get_ticks() - timeSinceSceneChange > 100:
+        currentColourList[0] += 1
+        if currentColourList[0] >= len(shipColourList):
+            currentColourList[0] = 0
+        updateButtons()
+
+
+    if backButton.draw(screen) and time.get_ticks() - timeSinceSceneChange > 100:
+        currentScene = backStack.pop()
+    return currentScene
+
 #game loop
 run = True
 while run:
@@ -855,7 +887,10 @@ while run:
     elif currentScene == "hardGame":
         print(currentScene)
         currentScene = hardGameScene(currentScene)
-    
+    elif currentScene == "colourChangeScene":
+        print(currentScene)
+        currentScene = changeColourScene(currentScene)
+
     pygame.display.update()
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
