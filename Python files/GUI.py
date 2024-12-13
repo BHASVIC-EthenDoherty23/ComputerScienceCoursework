@@ -18,28 +18,63 @@ screen = pygame.display.set_mode(size)
 
 #load images/backgrounds
 defaultBackgroundColor = 27, 27, 237  #Dark Blue like the ocean
+
 start_Button = pygame.image.load('Images/StartButton.png').convert_alpha()  #loads the StartButton image
+
+
 settings_Button = pygame.image.load('Images/SettingsButton.png').convert_alpha()  #loads the SettingsButton image
+
+
 statistics_Button = pygame.image.load('Images/statisticButton.png').convert_alpha()  #loads the StatisticsButton image
+
+
 exit_Button = pygame.image.load('Images/ExitButton.png').convert_alpha()  # loads the ExitButton image
+
+
 back_Button = pygame.image.load('Images/back.png').convert_alpha()  #loads the back button image
+
+
 easy_Button = pygame.image.load('Images/EasyButton.png').convert_alpha()  #loads the EasyButton image
+
+
 medium_Button = pygame.image.load('Images/MediumButton.png').convert_alpha()  #loads the MediumButton image
+
+
 hard_Button = pygame.image.load('Images/HardButton.png').convert_alpha()  #loads the HardButton image
+
+
 grid_Square = pygame.image.load('Images/gridSquare.png').convert_alpha() # loads the gridSquare image
+
+
 red_cross = pygame.image.load('Images/redCross.png').convert_alpha() # loads the redCross image
+
+
 green_Ship = pygame.image.load('Images/greenShip.png').convert_alpha() # loads the greenShip image
 blue_Ship = pygame.image.load('Images/blueSquare.png').convert_alpha() # loads the blueSquare image
 pink_Ship = pygame.image.load('Images/pinkSquare.png').convert_alpha() # loads the pinkSquare image
 orange_Ship = pygame.image.load('Images/orangeSquare.png').convert_alpha() # loads the orangeSquare image
 yellow_Ship = pygame.image.load('Images/yellowSquare.png').convert_alpha() # loads the yellowSquare image
-orange_Circle = pygame.image.load('Images/orangeCircle.png').convert_alpha() # loads the orange_Circle image
 attacked_Ship = pygame.image.load('Images/attackedShip.png').convert_alpha() # loads the attackedShip image
-main_Title = pygame.image.load('Images/mainTitle.png').convert_alpha() # loads the mainTitle image
-select_Difficulty = pygame.image.load('Images/selectDifficulty.png').convert_alpha()
-rotation_Button = pygame.image.load('Images/rotationButton.png').convert_alpha()
 black_Square = pygame.image.load('Images/blackSquare.png').convert_alpha()
+purple_Ship = pygame.image.load('Images/purpleSquare.png').convert_alpha() # loads the greenShip image
+navy_Blue_Square = pygame.image.load('Images/navyBlueSquare.png').convert_alpha()
+baby_Blue_Square = pygame.image.load('Images/babyBlueSquare.png').convert_alpha()
+dark_Green_Square = pygame.image.load('Images/darkGreenSquare.png').convert_alpha()
+
+
+
+orange_Circle = pygame.image.load('Images/orangeCircle.png').convert_alpha() # loads the orange_Circle image
+
+main_Title = pygame.image.load('Images/mainTitle.png').convert_alpha() # loads the mainTitle image
+
+select_Difficulty = pygame.image.load('Images/selectDifficulty.png').convert_alpha()
+
+rotation_Button = pygame.image.load('Images/rotationButton.png').convert_alpha()
+
+
 scale_Multi_Text = pygame.image.load('Images/scaleMultiText.png').convert_alpha()
+
+
 scale_Multi_Up = pygame.image.load('Images/scaleMultiUp.png').convert_alpha()
 scale_Multi_Down = pygame.image.load('Images/scaleMultiDown.png').convert_alpha()
 
