@@ -110,8 +110,12 @@ scaleMultiText = button.Button(size[0] / 2.5, size[1] * 0.1, scale_Multi_Text, 4
 
 colourChangeText1 = button.Button(size[0] / 2.5, size[1] * 0.1, colour_Change_Text_1, 450 * scaleMulti, 150 * scaleMulti)
 
-colourChangeUp = button.Button(size[0] / 2.5, size[1] * 0.1, colour_Change_Up, 450 * scaleMulti, 150 * scaleMulti)
-colourChangeButton = button.Button(size[0] / 2.5, size[1] * 0.2, colour_Change_Button, 450 * scaleMulti, 150 * scaleMulti)
+colourChangeUp = button.Button(size[0] / 2.5 + (450 * scaleMulti), size[1] * 0.1, scale_Multi_Up, 75 * scaleMulti,
+                             75 * scaleMulti)
+colourChangeDown =  button.Button(size[0] / 2.5 + (450 * scaleMulti), size[1] * 0.1 + 75 * scaleMulti,
+                               scale_Multi_Down, 75 * scaleMulti, 75 * scaleMulti)
+
+colourChangeButton = button.Button(size[0] / 2.5, size[1] * 0.3, colour_Change_Button, 450 * scaleMulti, 150 * scaleMulti)
 
 tempPlayerGrid = [[grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square]]
 tempEnemyGrid = [[grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square]]
@@ -266,6 +270,21 @@ def updateButtons():
     global scaleMultiText
     global scaleMultiUp
     global scaleMultiDown
+    global colourChangeButton
+    global colourChangeDown
+    global colourChangeUp
+    global colourChangeText1
+
+    colourChangeText1 = button.Button(size[0] / 2.5, size[1] * 0.1, colour_Change_Text_1, 450 * scaleMulti,
+                                      150 * scaleMulti)
+
+    colourChangeUp = button.Button(size[0] / 2.5 + (450 * scaleMulti), size[1] * 0.1, scale_Multi_Up, 75 * scaleMulti,
+                                   75 * scaleMulti)
+    colourChangeDown = button.Button(size[0] / 2.5 + (450 * scaleMulti), size[1] * 0.1 + 75 * scaleMulti,
+                                     scale_Multi_Down, 75 * scaleMulti, 75 * scaleMulti)
+
+    colourChangeButton = button.Button(size[0] / 2.5, size[1] * 0.3, colour_Change_Button, 450 * scaleMulti,
+                                       150 * scaleMulti)
 
     startButton = button.Button(size[0] / 2.5, size[1] * 0.2, start_Button,
                                 450 * scaleMulti, 150 * scaleMulti)
@@ -844,14 +863,19 @@ def changeColourScene(currentScene):
     global scaleMulti
     screen.fill(defaultBackgroundColor)  # fills screen to remove all old scene
     colourChangeText1.draw(screen)
-    button.Button(1000, 1000, shipColourList[currentColourList[0]], 600 * scaleMulti, 200 * scaleMulti).draw(screen)
+    button.Button(size[0]/2.5,size[1] * 0.1, shipColourList[currentColourList[0]], 450 * scaleMulti, 150 * scaleMulti).draw(screen)
     if colourChangeUp.draw(screen) and time.get_ticks() - timeSinceSceneChange > 100:
         currentColourList[0] += 1
         if currentColourList[0] >= len(shipColourList):
             currentColourList[0] = 0
         updateButtons()
-
-
+        timeSinceSceneChange = time.get_ticks()
+    if colourChangeDown.draw(screen) and time.get_ticks() - timeSinceSceneChange > 100:
+        currentColourList[0] += -1
+        if currentColourList[0] < 0:
+            currentColourList[0] = len(shipColourList) - 1
+        updateButtons()
+        timeSinceSceneChange = time.get_ticks()
     if backButton.draw(screen) and time.get_ticks() - timeSinceSceneChange > 100:
         currentScene = backStack.pop()
     return currentScene
