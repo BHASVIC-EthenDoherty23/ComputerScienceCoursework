@@ -735,7 +735,7 @@ def mediumGameScene(currentScene):
                     counter4L = 0
                     counter3L = 0
                     counter2L = 0
-                    counter22 = 0
+                    counter2L2 = 0
                     for i in range(10):
                         for j in range(10):
                             if playerShipStorer[i][j] == 15:
