@@ -86,8 +86,7 @@ colour_Change_Button = pygame.image.load('Images/colourChangeButton.png').conver
 colour_Change_Text_1 = pygame.image.load('Images/colourChangeText1.png').convert_alpha()
 colour_Change_Up = pygame.image.load('Images/scaleMultiUp.png').convert_alpha()
 
-#with open('Settings.txt', 'w') as f: # opening in write mode allows it create a new txt file called "Settings.txt" if the file doenst exist
-#    pass
+
 with open('Settings.txt', 'r') as f: #opens file in r which allows the code to read
     f.seek(0)
     f_content = f.readline()
@@ -323,14 +322,13 @@ def settingsMenuScene(currentScene):
     if scaleMultiUp.draw(screen) and scaleMulti < 1.5 and time.get_ticks() - timeSinceSceneChange > 100:
         scaleMulti += 0.05
         with open('Settings.txt' , 'w') as f:
-
-            f.write(str(scaleMulti)) # overwrites old value of scaleMulti
+            f.writelines([str(scaleMulti), '\n', str(currentColourList[0])]) # overwrites old value of scaleMulti
         updateButtons()
         timeSinceSceneChange = time.get_ticks()
     if scaleMultiDown.draw(screen) and scaleMulti > 0.5 and time.get_ticks() - timeSinceSceneChange > 100:
         scaleMulti -= 0.05
         with open('Settings.txt', 'w') as f:
-            f.write(str(scaleMulti)) # overwrites old value of scaleMulti
+            f.writelines([str(scaleMulti), '\n', str(currentColourList[0])]) # overwrites old value of scaleMulti
         updateButtons()
         timeSinceSceneChange = time.get_ticks()
 
@@ -881,10 +879,9 @@ def changeColourScene(currentScene):
         currentColourList[0] += 1
         if currentColourList[0] >= len(shipColourList):
             currentColourList[0] = 0
-        with open('Settings.txt', 'r+') as f:
+        with open('Settings.txt', 'w') as f:
             f.seek(0)
-            f.readline()
-            f.write(str(currentColourList[0]))
+            f.writelines([str(scaleMulti), '\n', str(currentColourList[0])])
         updateButtons()
         timeSinceSceneChange = time.get_ticks()
     if colourChangeDown.draw(screen) and time.get_ticks() - timeSinceSceneChange > 100:
@@ -893,7 +890,8 @@ def changeColourScene(currentScene):
             currentColourList[0] = len(shipColourList) - 1
         with open('Settings.txt', 'w') as f:
             f.seek(0)
-            f.writelines
+            f.writelines([str(scaleMulti), '\n', str(currentColourList[0])])
+
         updateButtons()
         timeSinceSceneChange = time.get_ticks()
     if backButton.draw(screen) and time.get_ticks() - timeSinceSceneChange > 100:
