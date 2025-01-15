@@ -85,7 +85,11 @@ colour_Change_Button = pygame.image.load('Images/colourChangeButton.png').conver
 colour_Change_Text_1 = pygame.image.load('Images/colourChangeText1.png').convert_alpha()
 colour_Change_Up = pygame.image.load('Images/scaleMultiUp.png').convert_alpha()
 
-scaleMulti = 1 #used to scale GUI buttons
+with open('Settings.txt', 'r+') as f: #opens file in r+ which allows the code to read and write to it
+    f_contents = f.readline()     #opening the file in read and write mode allows the code to create a new txt file called "Settings.txt" if the file doenst exist
+    if len(f_contents) > 0:        # if the file is empty it writes the number 1 to the file which is the default value of the scaleMulti variable
+        f.write(1)
+    scaleMulti = f_contents #set to the value in the Settings.txt file and used to scale GUI buttons
 
 #create buttons using button class
 startButton = button.Button(size[0] / 2.5, size[1] * 0.2, start_Button,
@@ -315,10 +319,14 @@ def settingsMenuScene(currentScene):
     scaleMultiText.draw(screen)
     if scaleMultiUp.draw(screen) and scaleMulti < 1.5 and time.get_ticks() - timeSinceSceneChange > 100:
         scaleMulti += 0.05
+        with open('Settings.txt' , 'w') as f:
+            f.write(scaleMulti) # overwrites old value of scaleMulti
         updateButtons()
         timeSinceSceneChange = time.get_ticks()
     if scaleMultiDown.draw(screen) and scaleMulti > 0.5 and time.get_ticks() - timeSinceSceneChange > 100:
         scaleMulti -= 0.05
+        with open('Settings.txt', 'w') as f:
+            f.write(scaleMulti) # overwrites old value of scaleMulti
         updateButtons()
         timeSinceSceneChange = time.get_ticks()
 
