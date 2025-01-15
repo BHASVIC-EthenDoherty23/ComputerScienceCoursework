@@ -164,6 +164,7 @@ es4Ship = ships.Ship(4, grid_Square, "right")
 es5Ship = ships.Ship(5, grid_Square, "right")
 
 def resetShipLists():
+    fs2Ship = ships.Ship(2, shipColourList[currentColourList[0]], "right")
     #appends created ships to friendlyShips and enemyShips list after removing all elements of the friendlyShips and enemyShips lists
     for i in range(len(friendlyShips)):
         friendlyShips.pop()
@@ -738,7 +739,7 @@ def mediumGameScene(currentScene):
                     enemyGrid[row][column] = button.Button(50 * scaleMulti * row + size[0] / 1.5, 50 * scaleMulti * column + size[1] / 3, red_cross, 50 * scaleMulti, 50 * scaleMulti)
                     turn = 2
                 timeSinceSceneChange = time.get_ticks()
-            if turn == 2 and time.get_ticks() - timeSinceSceneChange > 1:
+            if turn == 2 and time.get_ticks() - timeSinceSceneChange > 500:
                 isAttackable = True
                 randomRow = random_integers(0, 9)
                 randomColumn = random_integers(0, 9)
@@ -811,18 +812,19 @@ def mediumGameScene(currentScene):
                                                                              50 * scaleMulti * j + size[1] / 3,
                                                                              black_Square, 50 * scaleMulti, 50 * scaleMulti)
 
-                            elif playerGrid[randomRow][randomColumn] == tempPlayerGrid[randomRow][randomColumn] and isAttackable:
-                                playerGrid[randomRow][randomColumn] = button.Button(50 * scaleMulti * randomRow + size[0] / 5,
+                elif playerGrid[randomRow][randomColumn] == tempPlayerGrid[randomRow][randomColumn] and isAttackable:
+                        playerGrid[randomRow][randomColumn] = button.Button(50 * scaleMulti * randomRow + size[0] / 5,
                                                                                     50 * scaleMulti * randomColumn + size[
                                                                                     1] / 3, red_cross, 50 * scaleMulti,
                                                                                     50 * scaleMulti)
-                            turn = 1
-                            timeSinceSceneChange = time.get_ticks()
-                if backButton.draw(screen) and time.get_ticks() - timeSinceSceneChange > 100:
-                    currentScene = backStack.pop()
-                    turn = -1
-                    resetShipLists()
-                    timeSinceSceneChange = time.get_ticks()
+                        turn = 1
+                        timeSinceSceneChange = time.get_ticks()
+
+    if backButton.draw(screen) and time.get_ticks() - timeSinceSceneChange > 100:
+            currentScene = backStack.pop()
+            turn = -1
+            resetShipLists()
+            timeSinceSceneChange = time.get_ticks()
 
     return currentScene
 
