@@ -86,6 +86,9 @@ colour_Change_Button = pygame.image.load('Images/colourChangeButton.png').conver
 colour_Change_Text_1 = pygame.image.load('Images/colourChangeText1.png').convert_alpha()
 colour_Change_Up = pygame.image.load('Images/scaleMultiUp.png').convert_alpha()
 
+player_Win = pygame.image.load('Images/playerWin.png').convert_alpha()
+computer_Win = pygame.image.load('Images/computerWin.png').convert_alpha()
+
 
 with open('Settings.txt', 'r') as f: #opens file in r which allows the code to read
     f.seek(0)
@@ -121,7 +124,8 @@ colourChangeDown =  button.Button(size[0] / 2.5 + (450 * scaleMulti), size[1] * 
                                scale_Multi_Down, 75 * scaleMulti, 75 * scaleMulti)
 
 colourChangeButton = button.Button(size[0] / 2.5, size[1] * 0.3, colour_Change_Button, 450 * scaleMulti, 150 * scaleMulti)
-
+playerWin = button.Button(size[0] / 3.5 , size[1] * 0.2, player_Win, 900 * scaleMulti, 300 * scaleMulti)
+computerWin = button.Button(size[0] / 3.5 , size[1] * 0.2, computer_Win, 900 * scaleMulti, 300 * scaleMulti)
 tempPlayerGrid = [[grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square]]
 tempEnemyGrid = [[grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square]]
 playerGrid = [[grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square], [grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square, grid_Square]]
@@ -177,6 +181,7 @@ def resetShipLists():
     friendlyShips.append(fs4Ship)
     friendlyShips.append(fs5Ship)
 
+    turn = -1
 
     enemyShips.append(es2Ship)
     enemyShips.append(es2Ship2)
@@ -368,6 +373,8 @@ def easyGameScene(currentScene):
     global mainTitle
     global selectDifficulty
     global rotationButton
+    pwin = False
+    cwin = False
     screen.fill(defaultBackgroundColor)
     for row in range(10):
         for column in range(10):
@@ -479,6 +486,9 @@ def easyGameScene(currentScene):
                                 counter2L += 1
                             elif enemyShipStorer[i][j] == 11:
                                 counter2L2 += 1
+                    computerShipsHit = counter5L + counter2L + counter3L + counter4L + counter2L2
+                    if computerShipsHit == 16:
+                        pwin = True
                     if counter5L == 5:
                         for i in range(10):
                             for j in range(10):
@@ -540,11 +550,14 @@ def easyGameScene(currentScene):
                                 counter2L += 1
                             elif playerShipStorer[i][j] == 11:
                                 counter2L2 += 1
+                    playerShipsHit = counter5L + counter2L + counter3L + counter4L + counter2L2
+                    if playerShipsHit == 16:
+                        cwin = True
                     if counter5L == 5:
                         for i in range(10):
                             for j in range(10):
                                 if playerShipStorer[i][j] == 15:
-                                    playerGrid[i][j] = button.Button(50 * scaleMulti * i + size[0] / 5, 50 * j + size[1] / 3,
+                                    playerGrid[i][j] = button.Button(50 * scaleMulti * i + size[0] / 5, 50 * scaleMulti * j + size[1] / 3,
                                                                     black_Square, 50 * scaleMulti, 50 * scaleMulti)
                     if counter4L == 4:
                         for i in range(10):
@@ -575,6 +588,10 @@ def easyGameScene(currentScene):
                     playerGrid[randomRow][randomColumn] = button.Button(50 * scaleMulti * randomRow + size[0] / 5, 50 * scaleMulti * randomColumn + size[1] / 3, red_cross, 50 * scaleMulti,50 * scaleMulti)
                     turn = 1
                     timeSinceSceneChange = time.get_ticks()
+        if pwin:
+            currentScene = "playerWinScene"
+        elif cwin:
+            currentScene = "computerWinScene"
         if backButton.draw(screen) and time.get_ticks() - timeSinceSceneChange > 100:
             currentScene = backStack.pop()
             turn = -1
@@ -600,6 +617,8 @@ def mediumGameScene(currentScene):
     global mainTitle
     global selectDifficulty
     global rotationButton
+    pwin = False
+    cwin = False
     screen.fill(defaultBackgroundColor)
     for row in range(10):
         for column in range(10):
@@ -711,6 +730,9 @@ def mediumGameScene(currentScene):
                                 counter2L += 1
                             elif enemyShipStorer[i][j] == 11:
                                 counter2L2 += 1
+                    computerShipsHit = counter5L + counter2L + counter3L + counter4L + counter2L2
+                    if computerShipsHit == 16:
+                        pwin = True
                     if counter5L == 5:
                         for i in range(10):
                             for j in range(10):
@@ -812,7 +834,9 @@ def mediumGameScene(currentScene):
                                             playerGrid[i][j] = button.Button(50 * scaleMulti * i + size[0] / 5,
                                                                              50 * scaleMulti * j + size[1] / 3,
                                                                              black_Square, 50 * scaleMulti, 50 * scaleMulti)
-
+                            playerShipsHit = counter5L + counter2L + counter3L + counter4L + counter2L2
+                            if playerShipsHit == 16:
+                                cwin = True
                 elif playerGrid[randomRow][randomColumn] == tempPlayerGrid[randomRow][randomColumn] and isAttackable:
                         playerGrid[randomRow][randomColumn] = button.Button(50 * scaleMulti * randomRow + size[0] / 5,
                                                                                     50 * scaleMulti * randomColumn + size[
@@ -821,6 +845,10 @@ def mediumGameScene(currentScene):
                         turn = 1
                         timeSinceSceneChange = time.get_ticks()
 
+    if pwin:
+        currentScene = "playerWinScene"
+    elif cwin:
+        currentScene = "computerWinScene"
     if backButton.draw(screen) and time.get_ticks() - timeSinceSceneChange > 100:
             currentScene = backStack.pop()
             turn = -1
@@ -900,6 +928,22 @@ def changeColourScene(currentScene):
 
 #game loop
 run = True
+
+
+def playerWinScene(currentScene):
+    playerWin.draw(screen)
+    if backButton.draw(screen) and time.get_ticks() - timeSinceSceneChange > 100:
+        currentScene = backStack.pop()
+    return currentScene
+
+
+def computerWinScene(currentScene):
+    computerWin.draw(screen)
+    if backButton.draw(screen) and time.get_ticks() - timeSinceSceneChange > 100:
+        currentScene = backStack.pop()
+    return currentScene
+
+
 while run:
     print(backStack, "back stack")
     if currentScene == "mainMenu":
@@ -932,7 +976,11 @@ while run:
     elif currentScene == "colourChangeScene":
         print(currentScene)
         currentScene = changeColourScene(currentScene)
-
+    elif currentScene == "playerWinScene":
+        print(currentScene)
+        currentScene = playerWinScene(currentScene)
+    elif currentScene == "computerWinScene":
+        currentScene = computerWinScene(currentScene)
     pygame.display.update()
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
