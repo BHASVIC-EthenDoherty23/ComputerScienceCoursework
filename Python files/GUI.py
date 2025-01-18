@@ -602,7 +602,15 @@ def easyGameScene(currentScene):
 
 
 def findAttack(randomRow, randomColumn, direction):
-    newPos = (1,2)
+    newPos = (-1,-1)
+    if randomColumn < 0:
+        direction = "up"
+    elif randomColumn > 9:
+        direction = "down"
+    elif randomRow < 0:
+        direction = "left"
+    elif randomRow > 9:
+        direction = "right"
     if direction == "none":
         if playerShipStorer[randomRow + 1][randomColumn] == 15 or playerShipStorer[randomRow + 1][
             randomColumn] == 14 or playerShipStorer[randomRow + 1][randomColumn] == 13 or \
@@ -826,7 +834,7 @@ def mediumGameScene(currentScene):
                 for v in range(10):
                     for k in range(10):
                         if found == False and playerShipStorer[v][k] == 15 or playerShipStorer[v][k] == 14 or playerShipStorer[v][k] == 13 or playerShipStorer[v][k] == 12 or playerShipStorer[v][k] == 11:
-                            found == True
+                            found = True
                             randomRow = v
                             randomColumn = k
                 isAttackable = True
@@ -835,7 +843,7 @@ def mediumGameScene(currentScene):
                     newPos = findAttack(randomRow, randomColumn, "none")
 
                 if newPos == (-1, -1):
-                    if randomRow == -1:
+                    if found == False:
                         randomRow = random_integers(0, 9)
                         randomColumn = random_integers(0, 9)
                     else:
@@ -859,7 +867,14 @@ def mediumGameScene(currentScene):
                 else:
                     randomRow = newPos[0]
                     randomColumn = newPos[1]
-
+                    if randomColumn > 9:
+                        randomColumn = 8
+                    elif randomColumn < 0:
+                        randomColumn = 1
+                    if randomRow > 9:
+                        randomRow = 9
+                    elif randomRow < 0:
+                        randomRow = 1
                 for i in range(len(chosenAttacks)):
                     if chosenAttacks[i] == (randomRow, randomColumn):
                         isAttackable = False
