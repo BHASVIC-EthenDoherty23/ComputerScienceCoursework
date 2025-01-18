@@ -610,46 +610,49 @@ def findAttack(randomRow, randomColumn, direction):
                     randomColumn] == 12 or playerShipStorer[randomRow + 1][randomColumn] == 11:
             newPos = findAttack(randomRow + 1, randomColumn, "right")
 
-        elif playerShipStorer[randomRow - 1][randomColumn] == 15 or playerShipStorer[randomRow + 1][
-            randomColumn] == 14 or playerShipStorer[randomRow + 1][randomColumn] == 13 or \
-                playerShipStorer[randomRow + 1][
+        elif playerShipStorer[randomRow - 1][randomColumn] == 15 or playerShipStorer[randomRow - 1][
+            randomColumn] == 14 or playerShipStorer[randomRow - 1][randomColumn] == 13 or \
+                playerShipStorer[randomRow - 1][
                     randomColumn] == 12 or playerShipStorer[randomRow + 1][randomColumn] == 11:
-            newPos = findAttack(randomRow + 1, randomColumn, "left")
+            newPos = findAttack(randomRow - 1, randomColumn, "left")
 
-        elif playerShipStorer[randomRow + 1][randomColumn] == 15 or playerShipStorer[randomRow + 1][
-            randomColumn] == 14 or playerShipStorer[randomRow + 1][randomColumn] == 13 or \
-                playerShipStorer[randomRow + 1][
-                    randomColumn] == 12 or playerShipStorer[randomRow + 1][randomColumn] == 11:
-            newPos = findAttack(randomRow + 1, randomColumn, "up")
+        elif playerShipStorer[randomRow][randomColumn + 1] == 15 or playerShipStorer[randomRow][
+            randomColumn + 1] == 14 or playerShipStorer[randomRow][randomColumn + 1] == 13 or \
+                playerShipStorer[randomRow][
+                    randomColumn + 1] == 12 or playerShipStorer[randomRow + 1][randomColumn] == 11:
+            newPos = findAttack(randomRow, randomColumn + 1, "up")
 
-        elif playerShipStorer[randomRow + 1][randomColumn] == 15 or playerShipStorer[randomRow + 1][
-            randomColumn] == 14 or playerShipStorer[randomRow + 1][randomColumn] == 13 or \
-                playerShipStorer[randomRow + 1][
-                    randomColumn] == 12 or playerShipStorer[randomRow + 1][randomColumn] == 11:
-            newPos = findAttack(randomRow + 1, randomColumn, "down")
-
+        elif playerShipStorer[randomRow][randomColumn - 1] == 15 or playerShipStorer[randomRow][
+            randomColumn - 1] == 14 or playerShipStorer[randomRow][randomColumn - 1] == 13 or \
+                playerShipStorer[randomRow][
+                    randomColumn - 1] == 12 or playerShipStorer[randomRow][randomColumn - 1] == 11:
+            newPos = findAttack(randomRow, randomColumn - 1, "down")
 
 
 
     if direction == "right" and playerShipStorer[randomRow + 1][randomColumn] == 15 or playerShipStorer[randomRow + 1][
-        randomColumn] == 14 or playerShipStorer[randomRow + 1][randomColumn] == 13 or playerShipStorer[randomRow + 1][
-        randomColumn] == 12 or playerShipStorer[randomRow + 1][randomColumn] == 11:
+        randomColumn] == 14 or playerShipStorer[randomRow + 1][randomColumn] == 13 or \
+            playerShipStorer[randomRow + 1][
+                randomColumn] == 12 or playerShipStorer[randomRow + 1][randomColumn] == 11:
         newPos = findAttack(randomRow + 1, randomColumn, "right")
 
-    elif direction == "left" and playerShipStorer[randomRow - 1][randomColumn] == 15 or playerShipStorer[randomRow + 1][
-        randomColumn] == 14 or playerShipStorer[randomRow + 1][randomColumn] == 13 or playerShipStorer[randomRow + 1][
-        randomColumn] == 12 or playerShipStorer[randomRow + 1][randomColumn] == 11:
-        newPos = findAttack(randomRow + 1, randomColumn, "left")
+    elif direction == "left" and playerShipStorer[randomRow - 1][randomColumn] == 15 or playerShipStorer[randomRow - 1][
+        randomColumn] == 14 or playerShipStorer[randomRow - 1][randomColumn] == 13 or \
+            playerShipStorer[randomRow - 1][
+                randomColumn] == 12 or playerShipStorer[randomRow + 1][randomColumn] == 11:
+        newPos = findAttack(randomRow - 1, randomColumn, "left")
 
-    elif direction == "up" and playerShipStorer[randomRow + 1][randomColumn] == 15 or playerShipStorer[randomRow + 1][
-        randomColumn] == 14 or playerShipStorer[randomRow + 1][randomColumn] == 13 or playerShipStorer[randomRow + 1][
-        randomColumn] == 12 or playerShipStorer[randomRow + 1][randomColumn] == 11:
-        newPos = findAttack(randomRow + 1, randomColumn, "up")
+    elif direction == "up" and playerShipStorer[randomRow][randomColumn + 1] == 15 or playerShipStorer[randomRow][
+        randomColumn + 1] == 14 or playerShipStorer[randomRow][randomColumn + 1] == 13 or \
+            playerShipStorer[randomRow][
+                randomColumn + 1] == 12 or playerShipStorer[randomRow + 1][randomColumn] == 11:
+        newPos = findAttack(randomRow, randomColumn + 1, "up")
 
-    elif  direction == "down" and playerShipStorer[randomRow + 1][randomColumn] == 15 or playerShipStorer[randomRow + 1][
-        randomColumn] == 14 or playerShipStorer[randomRow + 1][randomColumn] == 13 or playerShipStorer[randomRow + 1][
-        randomColumn] == 12 or playerShipStorer[randomRow + 1][randomColumn] == 11:
-        newPos = findAttack(randomRow + 1, randomColumn, "down")
+    elif direction == "down" and playerShipStorer[randomRow][randomColumn - 1] == 15 or playerShipStorer[randomRow][
+        randomColumn - 1] == 14 or playerShipStorer[randomRow][randomColumn - 1] == 13 or \
+            playerShipStorer[randomRow][
+                randomColumn - 1] == 12 or playerShipStorer[randomRow][randomColumn - 1] == 11:
+        newPos = findAttack(randomRow, randomColumn - 1, "down")
 
     return newPos
 
