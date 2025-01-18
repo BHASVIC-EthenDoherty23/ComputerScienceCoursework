@@ -601,6 +601,59 @@ def easyGameScene(currentScene):
     return currentScene
 
 
+def findAttack(randomRow, randomColumn, direction):
+    newPos = (1,2)
+    if direction == "none":
+        if playerShipStorer[randomRow + 1][randomColumn] == 15 or playerShipStorer[randomRow + 1][
+            randomColumn] == 14 or playerShipStorer[randomRow + 1][randomColumn] == 13 or \
+                playerShipStorer[randomRow + 1][
+                    randomColumn] == 12 or playerShipStorer[randomRow + 1][randomColumn] == 11:
+            newPos = findAttack(randomRow + 1, randomColumn, "right")
+
+        elif playerShipStorer[randomRow - 1][randomColumn] == 15 or playerShipStorer[randomRow + 1][
+            randomColumn] == 14 or playerShipStorer[randomRow + 1][randomColumn] == 13 or \
+                playerShipStorer[randomRow + 1][
+                    randomColumn] == 12 or playerShipStorer[randomRow + 1][randomColumn] == 11:
+            newPos = findAttack(randomRow + 1, randomColumn, "left")
+
+        elif playerShipStorer[randomRow + 1][randomColumn] == 15 or playerShipStorer[randomRow + 1][
+            randomColumn] == 14 or playerShipStorer[randomRow + 1][randomColumn] == 13 or \
+                playerShipStorer[randomRow + 1][
+                    randomColumn] == 12 or playerShipStorer[randomRow + 1][randomColumn] == 11:
+            newPos = findAttack(randomRow + 1, randomColumn, "up")
+
+        elif playerShipStorer[randomRow + 1][randomColumn] == 15 or playerShipStorer[randomRow + 1][
+            randomColumn] == 14 or playerShipStorer[randomRow + 1][randomColumn] == 13 or \
+                playerShipStorer[randomRow + 1][
+                    randomColumn] == 12 or playerShipStorer[randomRow + 1][randomColumn] == 11:
+            newPos = findAttack(randomRow + 1, randomColumn, "down")
+
+
+
+
+    if direction == "right" and playerShipStorer[randomRow + 1][randomColumn] == 15 or playerShipStorer[randomRow + 1][
+        randomColumn] == 14 or playerShipStorer[randomRow + 1][randomColumn] == 13 or playerShipStorer[randomRow + 1][
+        randomColumn] == 12 or playerShipStorer[randomRow + 1][randomColumn] == 11:
+        newPos = findAttack(randomRow + 1, randomColumn, "right")
+
+    elif direction == "left" and playerShipStorer[randomRow - 1][randomColumn] == 15 or playerShipStorer[randomRow + 1][
+        randomColumn] == 14 or playerShipStorer[randomRow + 1][randomColumn] == 13 or playerShipStorer[randomRow + 1][
+        randomColumn] == 12 or playerShipStorer[randomRow + 1][randomColumn] == 11:
+        newPos = findAttack(randomRow + 1, randomColumn, "left")
+
+    elif direction == "up" and playerShipStorer[randomRow + 1][randomColumn] == 15 or playerShipStorer[randomRow + 1][
+        randomColumn] == 14 or playerShipStorer[randomRow + 1][randomColumn] == 13 or playerShipStorer[randomRow + 1][
+        randomColumn] == 12 or playerShipStorer[randomRow + 1][randomColumn] == 11:
+        newPos = findAttack(randomRow + 1, randomColumn, "up")
+
+    elif  direction == "down" and playerShipStorer[randomRow + 1][randomColumn] == 15 or playerShipStorer[randomRow + 1][
+        randomColumn] == 14 or playerShipStorer[randomRow + 1][randomColumn] == 13 or playerShipStorer[randomRow + 1][
+        randomColumn] == 12 or playerShipStorer[randomRow + 1][randomColumn] == 11:
+        newPos = findAttack(randomRow + 1, randomColumn, "down")
+
+    return newPos
+
+
 def mediumGameScene(currentScene):
     global backStack, playerGrid
     global timeSinceSceneChange
@@ -763,16 +816,55 @@ def mediumGameScene(currentScene):
                     turn = 2
                 timeSinceSceneChange = time.get_ticks()
             if turn == 2 and time.get_ticks() - timeSinceSceneChange > 500:
+                found = False
+                randomRow = -1
+                randomColumn = -1
+                newPos =  (-1, -1)
+                for v in range(10):
+                    for k in range(10):
+                        if found == False and playerShipStorer[v][k] == 15 or playerShipStorer[v][k] == 14 or playerShipStorer[v][k] == 13 or playerShipStorer[v][k] == 12 or playerShipStorer[v][k] == 11:
+                            found == True
+                            randomRow = v
+                            randomColumn = k
                 isAttackable = True
-                randomRow = random_integers(0, 9)
-                randomColumn = random_integers(0, 9)
+
+                if found == True:
+                    newPos = findAttack(randomRow, randomColumn, "none")
+
+                if newPos == (-1, -1):
+                    if randomRow == -1:
+                        randomRow = random_integers(0, 9)
+                        randomColumn = random_integers(0, 9)
+                    else:
+                        attackUp = random_integers(0, 1)
+                        if attackUp == 0:
+                            randomRow = v + random_integers(0, 1)
+                            if randomRow == v:
+                                randomRow = v - 1
+                            if randomRow > 9:
+                                randomRow = 9
+                            elif randomRow < 0:
+                                randomRow = 1
+                        else:
+                            randomColumn = k + random_integers(0, 1)
+                            if randomColumn == k:
+                                randomColumn = k - 1
+                            if randomColumn > 9:
+                                randomColumn = 8
+                            elif randomColumn < 0:
+                                randomColumn = 1
+                else:
+                    randomRow = newPos[0]
+                    randomColumn = newPos[1]
+
                 for i in range(len(chosenAttacks)):
                     if chosenAttacks[i] == (randomRow, randomColumn):
                         isAttackable = False
-                if not (randomRow + randomColumn) % 2 == 0:
+                if not (randomRow + randomColumn) % 2 == 0 and found == False:
                     isAttackable = False
                 if isAttackable:
                     chosenAttacks.append((randomRow, randomColumn))
+
 
                 if playerGrid[randomRow][randomColumn] != tempPlayerGrid[randomRow][randomColumn] and isAttackable:
                     playerGrid[randomRow][randomColumn] = button.Button(50 * scaleMulti * randomRow + size[0] / 5,
