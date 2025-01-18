@@ -169,7 +169,7 @@ es4Ship = ships.Ship(4, grid_Square, "right")
 es5Ship = ships.Ship(5, grid_Square, "right")
 
 def resetShipLists():
-    fs2Ship = ships.Ship(2, shipColourList[currentColourList[0]], "right")
+    global turn, playerShipStorer, enemyShipStorer
     #appends created ships to friendlyShips and enemyShips list after removing all elements of the friendlyShips and enemyShips lists
     for i in range(len(friendlyShips)):
         friendlyShips.pop()
