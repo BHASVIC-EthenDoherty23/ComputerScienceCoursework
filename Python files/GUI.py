@@ -142,7 +142,7 @@ for i in range(10):
         enemyGrid[i][j] = tempEnemyGrid[i][j]
 
 currentScene = "mainMenu"  #used so the program knows what screen to display to start with
-
+foundTrueCounter = 0
 backStack = list()  #Stack for the back button
 timeSinceSceneChange = time.get_ticks()
 turn = -1 # Place ships phase
@@ -603,9 +603,9 @@ def easyGameScene(currentScene):
 def findAttack(randomRow, randomColumn, direction):
     global ecounter5L, ecounter4L, ecounter3L, ecounter2L, ecounter2L2
     newPos = (-1,-1)
-    if randomColumn - 1 < 0:
+    if randomColumn + 1 < 0:
         direction = "down"
-    elif randomColumn + 1 > 9:
+    elif randomColumn - 1 > 9:
         direction = "up"
     elif randomRow - 1 < 0:
         direction = "right"
@@ -650,16 +650,16 @@ def findAttack(randomRow, randomColumn, direction):
                 randomColumn] == 12 and ecounter2L != 2 or playerShipStorer[randomRow + 1][randomColumn] == 11 and ecounter2L2 != 2):
         newPos = findAttack(randomRow - 1, randomColumn, "left")
 
-    elif direction == "up" and (playerShipStorer[randomRow][randomColumn + 1] == 15 and ecounter5L != 5 or playerShipStorer[randomRow][
-        randomColumn + 1] == 14 and ecounter4L != 4 or playerShipStorer[randomRow][randomColumn + 1] == 13 and ecounter3L != 3 or \
-            playerShipStorer[randomRow][
-                randomColumn + 1] == 12 and ecounter2L != 2 or playerShipStorer[randomRow + 1][randomColumn] == 11 and ecounter2L2 != 2):
-        newPos = findAttack(randomRow, randomColumn + 1, "up")
-
-    elif direction == "down" and (playerShipStorer[randomRow][randomColumn - 1] == 15 and ecounter5L != 5 or playerShipStorer[randomRow][
+    elif direction == "up" and (playerShipStorer[randomRow][randomColumn - 1] == 15 and ecounter5L != 5 or playerShipStorer[randomRow][
         randomColumn - 1] == 14 and ecounter4L != 4 or playerShipStorer[randomRow][randomColumn - 1] == 13 and ecounter3L != 3 or \
             playerShipStorer[randomRow][
-                randomColumn - 1] == 12 and ecounter2L != 2 or playerShipStorer[randomRow][randomColumn - 1] == 11 and ecounter2L2 != 2):
+                randomColumn - 1] == 12 and ecounter2L != 2 or playerShipStorer[randomRow - 1][randomColumn] == 11 and ecounter2L2 != 2):
+        newPos = findAttack(randomRow, randomColumn - 1, "up")
+
+    elif direction == "down" and (playerShipStorer[randomRow][randomColumn + 1] == 15 and ecounter5L != 5 or playerShipStorer[randomRow][
+        randomColumn + 1] == 14 and ecounter4L != 4 or playerShipStorer[randomRow][randomColumn + 1] == 13 and ecounter3L != 3 or \
+            playerShipStorer[randomRow][
+                randomColumn + 1] == 12 and ecounter2L != 2 or playerShipStorer[randomRow][randomColumn + 1] == 11 and ecounter2L2 != 2):
         newPos = findAttack(randomRow, randomColumn - 1, "down")
 
     return newPos
@@ -686,6 +686,7 @@ def mediumGameScene(currentScene):
     global ecounter3L
     global ecounter2L
     global ecounter2L2
+    global foundTrueCounter
     pwin = False
     cwin = False
     screen.fill(defaultBackgroundColor)
@@ -850,9 +851,18 @@ def mediumGameScene(currentScene):
                 if newPos == (-1, -1):
                     print("new pos = -1 -1")
                     if found == False:
+                        print("found is false")
+                        randomRow = random_integers(0, 9)
+                        randomColumn = random_integers(0, 9)
+                    elif foundTrueCounter > 100:
+
+                        foundTrueCounter = 0
+                        print("foundTrueCounter exceeds limit")
                         randomRow = random_integers(0, 9)
                         randomColumn = random_integers(0, 9)
                     else:
+                        print("found is true")
+                        foundTrueCounter = foundTrueCounter + 1
                         attackDir = random_integers(0,3)
                         if attackDir == 0:
                             randomRow = randomRow - 1
