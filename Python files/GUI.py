@@ -603,14 +603,14 @@ def easyGameScene(currentScene):
 
 def findAttack(randomRow, randomColumn, direction):
     newPos = (-1,-1)
-    if randomColumn < 0:
-        direction = "up"
-    elif randomColumn > 9:
+    if randomColumn - 1 < 0:
         direction = "down"
-    elif randomRow < 0:
-        direction = "left"
-    elif randomRow > 9:
+    elif randomColumn + 1 > 9:
+        direction = "up"
+    elif randomRow - 1 < 0:
         direction = "right"
+    elif randomRow + 1 > 9:
+        direction = "left"
     if direction == "none":
         if playerShipStorer[randomRow + 1][randomColumn] == 15 or playerShipStorer[randomRow + 1][
             randomColumn] == 14 or playerShipStorer[randomRow + 1][randomColumn] == 13 or \
@@ -638,28 +638,28 @@ def findAttack(randomRow, randomColumn, direction):
 
 
 
-    if direction == "right" and playerShipStorer[randomRow + 1][randomColumn] == 15 or playerShipStorer[randomRow + 1][
+    if direction == "right" and (playerShipStorer[randomRow + 1][randomColumn] == 15 or playerShipStorer[randomRow + 1][
         randomColumn] == 14 or playerShipStorer[randomRow + 1][randomColumn] == 13 or \
             playerShipStorer[randomRow + 1][
-                randomColumn] == 12 or playerShipStorer[randomRow + 1][randomColumn] == 11:
+                randomColumn] == 12 or playerShipStorer[randomRow + 1][randomColumn] == 11):
         newPos = findAttack(randomRow + 1, randomColumn, "right")
 
-    elif direction == "left" and playerShipStorer[randomRow - 1][randomColumn] == 15 or playerShipStorer[randomRow - 1][
+    elif direction == "left" and (playerShipStorer[randomRow - 1][randomColumn] == 15 or playerShipStorer[randomRow - 1][
         randomColumn] == 14 or playerShipStorer[randomRow - 1][randomColumn] == 13 or \
             playerShipStorer[randomRow - 1][
-                randomColumn] == 12 or playerShipStorer[randomRow + 1][randomColumn] == 11:
+                randomColumn] == 12 or playerShipStorer[randomRow + 1][randomColumn] == 11):
         newPos = findAttack(randomRow - 1, randomColumn, "left")
 
-    elif direction == "up" and playerShipStorer[randomRow][randomColumn + 1] == 15 or playerShipStorer[randomRow][
+    elif direction == "up" and (playerShipStorer[randomRow][randomColumn + 1] == 15 or playerShipStorer[randomRow][
         randomColumn + 1] == 14 or playerShipStorer[randomRow][randomColumn + 1] == 13 or \
             playerShipStorer[randomRow][
-                randomColumn + 1] == 12 or playerShipStorer[randomRow + 1][randomColumn] == 11:
+                randomColumn + 1] == 12 or playerShipStorer[randomRow + 1][randomColumn] == 11):
         newPos = findAttack(randomRow, randomColumn + 1, "up")
 
-    elif direction == "down" and playerShipStorer[randomRow][randomColumn - 1] == 15 or playerShipStorer[randomRow][
+    elif direction == "down" and (playerShipStorer[randomRow][randomColumn - 1] == 15 or playerShipStorer[randomRow][
         randomColumn - 1] == 14 or playerShipStorer[randomRow][randomColumn - 1] == 13 or \
             playerShipStorer[randomRow][
-                randomColumn - 1] == 12 or playerShipStorer[randomRow][randomColumn - 1] == 11:
+                randomColumn - 1] == 12 or playerShipStorer[randomRow][randomColumn - 1] == 11):
         newPos = findAttack(randomRow, randomColumn - 1, "down")
 
     return newPos
@@ -847,23 +847,24 @@ def mediumGameScene(currentScene):
                         randomRow = random_integers(0, 9)
                         randomColumn = random_integers(0, 9)
                     else:
-                        attackUp = random_integers(0, 1)
-                        if attackUp == 0:
-                            randomRow = v + random_integers(0, 1)
-                            if randomRow == v:
-                                randomRow = v - 1
+                        attackDir = random_integers(0,3)
+                        if attackDir == 0:
+                            randomRow = randomRow - 1
+                            if randomRow < 0:
+                                isAttackable = False
+                        elif attackDir == 1:
+                            randomRow = randomRow + 1
                             if randomRow > 9:
-                                randomRow = 9
-                            elif randomRow < 0:
-                                randomRow = 1
+                                isAttackable = False
+                        elif attackDir == 2:
+                            randomColumn = randomColumn - 1
+                            if randomColumn < 0:
+                                isAttackable = False
                         else:
-                            randomColumn = k + random_integers(0, 1)
-                            if randomColumn == k:
-                                randomColumn = k - 1
+                            randomColumn = randomColumn + 1
                             if randomColumn > 9:
-                                randomColumn = 8
-                            elif randomColumn < 0:
-                                randomColumn = 1
+                                isAttackable = False
+
                 else:
                     randomRow = newPos[0]
                     randomColumn = newPos[1]
