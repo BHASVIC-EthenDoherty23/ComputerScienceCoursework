@@ -894,6 +894,7 @@ def mediumGameScene(currentScene):
                     turn = 1
                     timeSinceSceneChange = time.get_ticks()
                     playerShipStorer[randomRow][randomColumn] += 10
+                    global counter5L, counter4L, counter3L, counter2L, counter2L2
                     counter5L = 0
                     counter4L = 0
                     counter3L = 0
