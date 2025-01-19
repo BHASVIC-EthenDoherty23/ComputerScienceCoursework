@@ -602,6 +602,7 @@ def easyGameScene(currentScene):
 
 
 def findAttack(randomRow, randomColumn, direction):
+    global counter5L, counter4L, counter3L, counter2L, counter2L2
     newPos = (-1,-1)
     if randomColumn - 1 < 0:
         direction = "down"
@@ -612,54 +613,54 @@ def findAttack(randomRow, randomColumn, direction):
     elif randomRow + 1 > 9:
         direction = "left"
     if direction == "none":
-        if playerShipStorer[randomRow + 1][randomColumn] == 15 or playerShipStorer[randomRow + 1][
-            randomColumn] == 14 or playerShipStorer[randomRow + 1][randomColumn] == 13 or \
+        if playerShipStorer[randomRow + 1][randomColumn] == 15 and counter5L != 5 or playerShipStorer[randomRow + 1][
+            randomColumn] == 14 and counter4L != 4 or playerShipStorer[randomRow + 1][randomColumn] == 13 and counter3L != 3 or \
                 playerShipStorer[randomRow + 1][
-                    randomColumn] == 12 or playerShipStorer[randomRow + 1][randomColumn] == 11:
+                    randomColumn] == 12 and counter2L != 2 or playerShipStorer[randomRow + 1][randomColumn] == 11 and counter2L2 != 2:
             newPos = findAttack(randomRow + 1, randomColumn, "right")
 
-        elif playerShipStorer[randomRow - 1][randomColumn] == 15 or playerShipStorer[randomRow - 1][
-            randomColumn] == 14 or playerShipStorer[randomRow - 1][randomColumn] == 13 or \
+        elif playerShipStorer[randomRow - 1][randomColumn] == 15 and counter5L != 5 or playerShipStorer[randomRow - 1][
+            randomColumn] == 14 and counter4L != 4 or playerShipStorer[randomRow - 1][randomColumn] == 13 and counter3L != 3 or \
                 playerShipStorer[randomRow - 1][
-                    randomColumn] == 12 or playerShipStorer[randomRow + 1][randomColumn] == 11:
+                    randomColumn] == 12 and counter2L != 2 or playerShipStorer[randomRow + 1][randomColumn] == 11 and counter2L2 != 2:
             newPos = findAttack(randomRow - 1, randomColumn, "left")
 
-        elif playerShipStorer[randomRow][randomColumn + 1] == 15 or playerShipStorer[randomRow][
-            randomColumn + 1] == 14 or playerShipStorer[randomRow][randomColumn + 1] == 13 or \
+        elif playerShipStorer[randomRow][randomColumn + 1] == 15 and counter5L != 5 or playerShipStorer[randomRow][
+            randomColumn + 1] == 14 and counter4L != 4 or playerShipStorer[randomRow][randomColumn + 1] == 13 and counter3L != 3 or \
                 playerShipStorer[randomRow][
-                    randomColumn + 1] == 12 or playerShipStorer[randomRow + 1][randomColumn] == 11:
+                    randomColumn + 1] == 12 and counter2L != 2 or playerShipStorer[randomRow + 1][randomColumn] == 11 and counter2L2 != 2:
             newPos = findAttack(randomRow, randomColumn + 1, "up")
 
-        elif playerShipStorer[randomRow][randomColumn - 1] == 15 or playerShipStorer[randomRow][
-            randomColumn - 1] == 14 or playerShipStorer[randomRow][randomColumn - 1] == 13 or \
+        elif playerShipStorer[randomRow][randomColumn - 1] == 15 and counter5L != 5 or playerShipStorer[randomRow][
+            randomColumn - 1] == 14 and counter4L != 4 or playerShipStorer[randomRow][randomColumn - 1] == 13 and counter3L != 3 or \
                 playerShipStorer[randomRow][
-                    randomColumn - 1] == 12 or playerShipStorer[randomRow][randomColumn - 1] == 11:
+                    randomColumn - 1] == 12 and counter2L != 2 or playerShipStorer[randomRow][randomColumn - 1] == 11 and counter2L2 != 2:
             newPos = findAttack(randomRow, randomColumn - 1, "down")
 
 
 
-    if direction == "right" and (playerShipStorer[randomRow + 1][randomColumn] == 15 or playerShipStorer[randomRow + 1][
-        randomColumn] == 14 or playerShipStorer[randomRow + 1][randomColumn] == 13 or \
+    if direction == "right" and (playerShipStorer[randomRow + 1][randomColumn] == 15 and counter5L != 5 or playerShipStorer[randomRow + 1][
+        randomColumn] == 14 and counter4L != 4 or playerShipStorer[randomRow + 1][randomColumn] == 13 and counter3L != 3 or \
             playerShipStorer[randomRow + 1][
-                randomColumn] == 12 or playerShipStorer[randomRow + 1][randomColumn] == 11):
+                randomColumn] == 12 and counter2L != 4 or playerShipStorer[randomRow + 1][randomColumn] == 11 and counter2L2 != 2):
         newPos = findAttack(randomRow + 1, randomColumn, "right")
 
-    elif direction == "left" and (playerShipStorer[randomRow - 1][randomColumn] == 15 or playerShipStorer[randomRow - 1][
-        randomColumn] == 14 or playerShipStorer[randomRow - 1][randomColumn] == 13 or \
+    elif direction == "left" and (playerShipStorer[randomRow - 1][randomColumn] == 15 and counter5L != 5 or playerShipStorer[randomRow - 1][
+        randomColumn] == 14 and counter4L != 4 or playerShipStorer[randomRow - 1][randomColumn] == 13 and counter3L != 3 or \
             playerShipStorer[randomRow - 1][
-                randomColumn] == 12 or playerShipStorer[randomRow + 1][randomColumn] == 11):
+                randomColumn] == 12 and counter2L != 2 or playerShipStorer[randomRow + 1][randomColumn] == 11 and counter2L2 != 2):
         newPos = findAttack(randomRow - 1, randomColumn, "left")
 
-    elif direction == "up" and (playerShipStorer[randomRow][randomColumn + 1] == 15 or playerShipStorer[randomRow][
-        randomColumn + 1] == 14 or playerShipStorer[randomRow][randomColumn + 1] == 13 or \
+    elif direction == "up" and (playerShipStorer[randomRow][randomColumn + 1] == 15 and counter5L != 5 or playerShipStorer[randomRow][
+        randomColumn + 1] == 14 and counter4L != 4 or playerShipStorer[randomRow][randomColumn + 1] == 13 and counter3L != 3 or \
             playerShipStorer[randomRow][
-                randomColumn + 1] == 12 or playerShipStorer[randomRow + 1][randomColumn] == 11):
+                randomColumn + 1] == 12 and counter2L != 2 or playerShipStorer[randomRow + 1][randomColumn] == 11 and counter2L2 != 2):
         newPos = findAttack(randomRow, randomColumn + 1, "up")
 
-    elif direction == "down" and (playerShipStorer[randomRow][randomColumn - 1] == 15 or playerShipStorer[randomRow][
-        randomColumn - 1] == 14 or playerShipStorer[randomRow][randomColumn - 1] == 13 or \
+    elif direction == "down" and (playerShipStorer[randomRow][randomColumn - 1] == 15 and counter5L != 5 or playerShipStorer[randomRow][
+        randomColumn - 1] == 14 and counter4L != 4 or playerShipStorer[randomRow][randomColumn - 1] == 13 and counter3L != 3 or \
             playerShipStorer[randomRow][
-                randomColumn - 1] == 12 or playerShipStorer[randomRow][randomColumn - 1] == 11):
+                randomColumn - 1] == 12 and counter2L != 2 or playerShipStorer[randomRow][randomColumn - 1] == 11 and counter2L2 != 2):
         newPos = findAttack(randomRow, randomColumn - 1, "down")
 
     return newPos
