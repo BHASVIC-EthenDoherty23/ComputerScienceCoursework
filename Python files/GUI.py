@@ -153,7 +153,6 @@ chosenAttacksPlayer = list()
 friendlyShips = list()
 enemyShips = list()
 direction = "right"
-
 #friendly ships creation
 fs2Ship = ships.Ship(2, green_Ship, "right")
 fs2Ship2 = ships.Ship(2, blue_Ship, "right")
@@ -602,7 +601,7 @@ def easyGameScene(currentScene):
 
 
 def findAttack(randomRow, randomColumn, direction):
-    global counter5L, counter4L, counter3L, counter2L, counter2L2
+    global ecounter5L, ecounter4L, ecounter3L, ecounter2L, ecounter2L2
     newPos = (-1,-1)
     if randomColumn - 1 < 0:
         direction = "down"
@@ -613,54 +612,54 @@ def findAttack(randomRow, randomColumn, direction):
     elif randomRow + 1 > 9:
         direction = "left"
     if direction == "none":
-        if playerShipStorer[randomRow + 1][randomColumn] == 15 and counter5L != 5 or playerShipStorer[randomRow + 1][
-            randomColumn] == 14 and counter4L != 4 or playerShipStorer[randomRow + 1][randomColumn] == 13 and counter3L != 3 or \
+        if playerShipStorer[randomRow + 1][randomColumn] == 15 and ecounter5L != 5 or playerShipStorer[randomRow + 1][
+            randomColumn] == 14 and ecounter4L != 4 or playerShipStorer[randomRow + 1][randomColumn] == 13 and ecounter3L != 3 or \
                 playerShipStorer[randomRow + 1][
-                    randomColumn] == 12 and counter2L != 2 or playerShipStorer[randomRow + 1][randomColumn] == 11 and counter2L2 != 2:
+                    randomColumn] == 12 and ecounter2L != 2 or playerShipStorer[randomRow + 1][randomColumn] == 11 and ecounter2L2 != 2:
             newPos = findAttack(randomRow + 1, randomColumn, "right")
 
-        elif playerShipStorer[randomRow - 1][randomColumn] == 15 and counter5L != 5 or playerShipStorer[randomRow - 1][
-            randomColumn] == 14 and counter4L != 4 or playerShipStorer[randomRow - 1][randomColumn] == 13 and counter3L != 3 or \
+        elif playerShipStorer[randomRow - 1][randomColumn] == 15 and ecounter5L != 5 or playerShipStorer[randomRow - 1][
+            randomColumn] == 14 and ecounter4L != 4 or playerShipStorer[randomRow - 1][randomColumn] == 13 and ecounter3L != 3 or \
                 playerShipStorer[randomRow - 1][
-                    randomColumn] == 12 and counter2L != 2 or playerShipStorer[randomRow + 1][randomColumn] == 11 and counter2L2 != 2:
+                    randomColumn] == 12 and ecounter2L != 2 or playerShipStorer[randomRow + 1][randomColumn] == 11 and ecounter2L2 != 2:
             newPos = findAttack(randomRow - 1, randomColumn, "left")
 
-        elif playerShipStorer[randomRow][randomColumn + 1] == 15 and counter5L != 5 or playerShipStorer[randomRow][
-            randomColumn + 1] == 14 and counter4L != 4 or playerShipStorer[randomRow][randomColumn + 1] == 13 and counter3L != 3 or \
+        elif playerShipStorer[randomRow][randomColumn + 1] == 15 and ecounter5L != 5 or playerShipStorer[randomRow][
+            randomColumn + 1] == 14 and ecounter4L != 4 or playerShipStorer[randomRow][randomColumn + 1] == 13 and ecounter3L != 3 or \
                 playerShipStorer[randomRow][
-                    randomColumn + 1] == 12 and counter2L != 2 or playerShipStorer[randomRow + 1][randomColumn] == 11 and counter2L2 != 2:
+                    randomColumn + 1] == 12 and ecounter2L != 2 or playerShipStorer[randomRow + 1][randomColumn] == 11 and ecounter2L2 != 2:
             newPos = findAttack(randomRow, randomColumn + 1, "up")
 
-        elif playerShipStorer[randomRow][randomColumn - 1] == 15 and counter5L != 5 or playerShipStorer[randomRow][
-            randomColumn - 1] == 14 and counter4L != 4 or playerShipStorer[randomRow][randomColumn - 1] == 13 and counter3L != 3 or \
+        elif playerShipStorer[randomRow][randomColumn - 1] == 15 and ecounter5L != 5 or playerShipStorer[randomRow][
+            randomColumn - 1] == 14 and ecounter4L != 4 or playerShipStorer[randomRow][randomColumn - 1] == 13 and ecounter3L != 3 or \
                 playerShipStorer[randomRow][
-                    randomColumn - 1] == 12 and counter2L != 2 or playerShipStorer[randomRow][randomColumn - 1] == 11 and counter2L2 != 2:
+                    randomColumn - 1] == 12 and ecounter2L != 2 or playerShipStorer[randomRow][randomColumn - 1] == 11 and ecounter2L2 != 2:
             newPos = findAttack(randomRow, randomColumn - 1, "down")
 
 
 
-    if direction == "right" and (playerShipStorer[randomRow + 1][randomColumn] == 15 and counter5L != 5 or playerShipStorer[randomRow + 1][
-        randomColumn] == 14 and counter4L != 4 or playerShipStorer[randomRow + 1][randomColumn] == 13 and counter3L != 3 or \
+    if direction == "right" and (playerShipStorer[randomRow + 1][randomColumn] == 15 and ecounter5L != 5 or playerShipStorer[randomRow + 1][
+        randomColumn] == 14 and ecounter4L != 4 or playerShipStorer[randomRow + 1][randomColumn] == 13 and ecounter3L != 3 or \
             playerShipStorer[randomRow + 1][
-                randomColumn] == 12 and counter2L != 4 or playerShipStorer[randomRow + 1][randomColumn] == 11 and counter2L2 != 2):
+                randomColumn] == 12 and ecounter2L != 4 or playerShipStorer[randomRow + 1][randomColumn] == 11 and ecounter2L2 != 2):
         newPos = findAttack(randomRow + 1, randomColumn, "right")
 
-    elif direction == "left" and (playerShipStorer[randomRow - 1][randomColumn] == 15 and counter5L != 5 or playerShipStorer[randomRow - 1][
-        randomColumn] == 14 and counter4L != 4 or playerShipStorer[randomRow - 1][randomColumn] == 13 and counter3L != 3 or \
+    elif direction == "left" and (playerShipStorer[randomRow - 1][randomColumn] == 15 and ecounter5L != 5 or playerShipStorer[randomRow - 1][
+        randomColumn] == 14 and ecounter4L != 4 or playerShipStorer[randomRow - 1][randomColumn] == 13 and ecounter3L != 3 or \
             playerShipStorer[randomRow - 1][
-                randomColumn] == 12 and counter2L != 2 or playerShipStorer[randomRow + 1][randomColumn] == 11 and counter2L2 != 2):
+                randomColumn] == 12 and ecounter2L != 2 or playerShipStorer[randomRow + 1][randomColumn] == 11 and ecounter2L2 != 2):
         newPos = findAttack(randomRow - 1, randomColumn, "left")
 
-    elif direction == "up" and (playerShipStorer[randomRow][randomColumn + 1] == 15 and counter5L != 5 or playerShipStorer[randomRow][
-        randomColumn + 1] == 14 and counter4L != 4 or playerShipStorer[randomRow][randomColumn + 1] == 13 and counter3L != 3 or \
+    elif direction == "up" and (playerShipStorer[randomRow][randomColumn + 1] == 15 and ecounter5L != 5 or playerShipStorer[randomRow][
+        randomColumn + 1] == 14 and ecounter4L != 4 or playerShipStorer[randomRow][randomColumn + 1] == 13 and ecounter3L != 3 or \
             playerShipStorer[randomRow][
-                randomColumn + 1] == 12 and counter2L != 2 or playerShipStorer[randomRow + 1][randomColumn] == 11 and counter2L2 != 2):
+                randomColumn + 1] == 12 and ecounter2L != 2 or playerShipStorer[randomRow + 1][randomColumn] == 11 and ecounter2L2 != 2):
         newPos = findAttack(randomRow, randomColumn + 1, "up")
 
-    elif direction == "down" and (playerShipStorer[randomRow][randomColumn - 1] == 15 and counter5L != 5 or playerShipStorer[randomRow][
-        randomColumn - 1] == 14 and counter4L != 4 or playerShipStorer[randomRow][randomColumn - 1] == 13 and counter3L != 3 or \
+    elif direction == "down" and (playerShipStorer[randomRow][randomColumn - 1] == 15 and ecounter5L != 5 or playerShipStorer[randomRow][
+        randomColumn - 1] == 14 and ecounter4L != 4 or playerShipStorer[randomRow][randomColumn - 1] == 13 and ecounter3L != 3 or \
             playerShipStorer[randomRow][
-                randomColumn - 1] == 12 and counter2L != 2 or playerShipStorer[randomRow][randomColumn - 1] == 11 and counter2L2 != 2):
+                randomColumn - 1] == 12 and ecounter2L != 2 or playerShipStorer[randomRow][randomColumn - 1] == 11 and ecounter2L2 != 2):
         newPos = findAttack(randomRow, randomColumn - 1, "down")
 
     return newPos
@@ -682,6 +681,11 @@ def mediumGameScene(currentScene):
     global mainTitle
     global selectDifficulty
     global rotationButton
+    global ecounter5L
+    global ecounter4L
+    global ecounter3L
+    global ecounter2L
+    global ecounter2L2
     pwin = False
     cwin = False
     screen.fill(defaultBackgroundColor)
@@ -844,6 +848,7 @@ def mediumGameScene(currentScene):
                     newPos = findAttack(randomRow, randomColumn, "none")
 
                 if newPos == (-1, -1):
+                    print("new pos = -1 -1")
                     if found == False:
                         randomRow = random_integers(0, 9)
                         randomColumn = random_integers(0, 9)
@@ -867,6 +872,7 @@ def mediumGameScene(currentScene):
                                 isAttackable = False
 
                 else:
+                    print("rands = news")
                     randomRow = newPos[0]
                     randomColumn = newPos[1]
                     if randomColumn > 9:
@@ -877,6 +883,7 @@ def mediumGameScene(currentScene):
                         randomRow = 9
                     elif randomRow < 0:
                         randomRow = 1
+
                 for i in range(len(chosenAttacks)):
                     if chosenAttacks[i] == (randomRow, randomColumn):
                         isAttackable = False
@@ -894,60 +901,59 @@ def mediumGameScene(currentScene):
                     turn = 1
                     timeSinceSceneChange = time.get_ticks()
                     playerShipStorer[randomRow][randomColumn] += 10
-                    global counter5L, counter4L, counter3L, counter2L, counter2L2
-                    counter5L = 0
-                    counter4L = 0
-                    counter3L = 0
-                    counter2L = 0
-                    counter2L2 = 0
+                    ecounter5L = 0
+                    ecounter4L = 0
+                    ecounter3L = 0
+                    ecounter2L = 0
+                    ecounter2L2 = 0
                     for i in range(10):
                         for j in range(10):
                             if playerShipStorer[i][j] == 15:
-                                counter5L += 1
+                                ecounter5L += 1
                             elif playerShipStorer[i][j] == 14:
-                                counter4L += 1
+                                ecounter4L += 1
                             elif playerShipStorer[i][j] == 13:
-                                counter3L += 1
+                                ecounter3L += 1
                             elif playerShipStorer[i][j] == 12:
-                                counter2L += 1
+                                ecounter2L += 1
                             elif playerShipStorer[i][j] == 11:
-                                counter2L2 += 1
-                            if counter5L == 5:
+                                ecounter2L2 += 1
+                            if ecounter5L == 5:
                                 for i in range(10):
                                     for j in range(10):
                                         if playerShipStorer[i][j] == 15:
                                             playerGrid[i][j] = button.Button(50 * scaleMulti * i + size[0] / 5,
                                                                              50 * j + size[1] / 3,
                                                                              black_Square, 50 * scaleMulti, 50 * scaleMulti)
-                            if counter4L == 4:
+                            if ecounter4L == 4:
                                 for i in range(10):
                                     for j in range(10):
                                         if playerShipStorer[i][j] == 14:
                                             playerGrid[i][j] = button.Button(50 * scaleMulti * i + size[0] / 5,
                                                                              50 * scaleMulti * j + size[1] / 3,
                                                                              black_Square, 50 * scaleMulti, 50 * scaleMulti)
-                            if counter3L == 3:
+                            if ecounter3L == 3:
                                 for i in range(10):
                                     for j in range(10):
                                         if playerShipStorer[i][j] == 13:
                                             playerGrid[i][j] = button.Button(50 * scaleMulti * i + size[0] / 5,
                                                                              50 * scaleMulti * j + size[1] / 3,
                                                                              black_Square, 50 * scaleMulti, 50 * scaleMulti)
-                            if counter2L == 2:
+                            if ecounter2L == 2:
                                 for i in range(10):
                                     for j in range(10):
                                         if playerShipStorer[i][j] == 12:
                                             playerGrid[i][j] = button.Button(50 * scaleMulti * i + size[0] / 5,
                                                                             50 * scaleMulti * j + size[1] / 3,
                                                                             black_Square, 50 * scaleMulti, 50 * scaleMulti)
-                            if counter2L2 == 2:
+                            if ecounter2L2 == 2:
                                 for i in range(10):
                                     for j in range(10):
                                         if playerShipStorer[i][j] == 11:
                                             playerGrid[i][j] = button.Button(50 * scaleMulti * i + size[0] / 5,
                                                                              50 * scaleMulti * j + size[1] / 3,
                                                                              black_Square, 50 * scaleMulti, 50 * scaleMulti)
-                            playerShipsHit = counter5L + counter2L + counter3L + counter4L + counter2L2
+                            playerShipsHit = ecounter5L + ecounter2L + ecounter3L + ecounter4L + ecounter2L2
                             if playerShipsHit == 16:
                                 cwin = True
                 elif playerGrid[randomRow][randomColumn] == tempPlayerGrid[randomRow][randomColumn] and isAttackable:
