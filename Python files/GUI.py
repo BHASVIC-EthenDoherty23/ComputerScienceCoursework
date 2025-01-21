@@ -600,9 +600,9 @@ def easyGameScene(currentScene):
     return currentScene
 
 
-def findAttack(randomRow, randomColumn, direction):
+def findAttack(randomRow, randomColumn, direction, newPos):
     global ecounter5L, ecounter4L, ecounter3L, ecounter2L, ecounter2L2
-    newPos = (-1,-1)
+
     if randomColumn + 1 < 0:
         direction = "down"
     elif randomColumn - 1 > 9:
@@ -616,25 +616,25 @@ def findAttack(randomRow, randomColumn, direction):
             randomColumn] == 14 and ecounter4L != 4 or playerShipStorer[randomRow + 1][randomColumn] == 13 and ecounter3L != 3 or \
                 playerShipStorer[randomRow + 1][
                     randomColumn] == 12 and ecounter2L != 2 or playerShipStorer[randomRow + 1][randomColumn] == 11 and ecounter2L2 != 2:
-            newPos = findAttack(randomRow + 1, randomColumn, "right")
+            newPos = findAttack(randomRow + 1, randomColumn, "right", (randomRow + 1, randomColumn))
 
         elif playerShipStorer[randomRow - 1][randomColumn] == 15 and ecounter5L != 5 or playerShipStorer[randomRow - 1][
             randomColumn] == 14 and ecounter4L != 4 or playerShipStorer[randomRow - 1][randomColumn] == 13 and ecounter3L != 3 or \
                 playerShipStorer[randomRow - 1][
                     randomColumn] == 12 and ecounter2L != 2 or playerShipStorer[randomRow + 1][randomColumn] == 11 and ecounter2L2 != 2:
-            newPos = findAttack(randomRow - 1, randomColumn, "left")
-
-        elif playerShipStorer[randomRow][randomColumn + 1] == 15 and ecounter5L != 5 or playerShipStorer[randomRow][
-            randomColumn + 1] == 14 and ecounter4L != 4 or playerShipStorer[randomRow][randomColumn + 1] == 13 and ecounter3L != 3 or \
-                playerShipStorer[randomRow][
-                    randomColumn + 1] == 12 and ecounter2L != 2 or playerShipStorer[randomRow + 1][randomColumn] == 11 and ecounter2L2 != 2:
-            newPos = findAttack(randomRow, randomColumn + 1, "up")
+            newPos = findAttack(randomRow - 1, randomColumn, "left", (randomRow - 1, randomColumn))
 
         elif playerShipStorer[randomRow][randomColumn - 1] == 15 and ecounter5L != 5 or playerShipStorer[randomRow][
             randomColumn - 1] == 14 and ecounter4L != 4 or playerShipStorer[randomRow][randomColumn - 1] == 13 and ecounter3L != 3 or \
                 playerShipStorer[randomRow][
-                    randomColumn - 1] == 12 and ecounter2L != 2 or playerShipStorer[randomRow][randomColumn - 1] == 11 and ecounter2L2 != 2:
-            newPos = findAttack(randomRow, randomColumn - 1, "down")
+                    randomColumn - 1] == 12 and ecounter2L != 2 or playerShipStorer[randomRow - 1][randomColumn] == 11 and ecounter2L2 != 2:
+            newPos = findAttack(randomRow, randomColumn + 1, "up", (randomRow, randomColumn - 1))
+
+        elif playerShipStorer[randomRow][randomColumn + 1] == 15 and ecounter5L != 5 or playerShipStorer[randomRow][
+            randomColumn + 1] == 14 and ecounter4L != 4 or playerShipStorer[randomRow][randomColumn + 1] == 13 and ecounter3L != 3 or \
+                playerShipStorer[randomRow][
+                    randomColumn + 1] == 12 and ecounter2L != 2 or playerShipStorer[randomRow][randomColumn + 1] == 11 and ecounter2L2 != 2:
+            newPos = findAttack(randomRow, randomColumn - 1, "down", (randomRow, randomColumn + 1))
 
 
 
@@ -642,25 +642,25 @@ def findAttack(randomRow, randomColumn, direction):
         randomColumn] == 14 and ecounter4L != 4 or playerShipStorer[randomRow + 1][randomColumn] == 13 and ecounter3L != 3 or \
             playerShipStorer[randomRow + 1][
                 randomColumn] == 12 and ecounter2L != 4 or playerShipStorer[randomRow + 1][randomColumn] == 11 and ecounter2L2 != 2):
-        newPos = findAttack(randomRow + 1, randomColumn, "right")
+        newPos = findAttack(randomRow + 1, randomColumn, "right", (randomRow + 1, randomColumn))
 
     elif direction == "left" and (playerShipStorer[randomRow - 1][randomColumn] == 15 and ecounter5L != 5 or playerShipStorer[randomRow - 1][
         randomColumn] == 14 and ecounter4L != 4 or playerShipStorer[randomRow - 1][randomColumn] == 13 and ecounter3L != 3 or \
             playerShipStorer[randomRow - 1][
                 randomColumn] == 12 and ecounter2L != 2 or playerShipStorer[randomRow + 1][randomColumn] == 11 and ecounter2L2 != 2):
-        newPos = findAttack(randomRow - 1, randomColumn, "left")
+        newPos = findAttack(randomRow - 1, randomColumn, "left", (randomRow - 1, randomColumn -1))
 
     elif direction == "up" and (playerShipStorer[randomRow][randomColumn - 1] == 15 and ecounter5L != 5 or playerShipStorer[randomRow][
         randomColumn - 1] == 14 and ecounter4L != 4 or playerShipStorer[randomRow][randomColumn - 1] == 13 and ecounter3L != 3 or \
             playerShipStorer[randomRow][
                 randomColumn - 1] == 12 and ecounter2L != 2 or playerShipStorer[randomRow - 1][randomColumn] == 11 and ecounter2L2 != 2):
-        newPos = findAttack(randomRow, randomColumn - 1, "up")
+        newPos = findAttack(randomRow, randomColumn - 1, "up",(randomRow, randomColumn -1))
 
     elif direction == "down" and (playerShipStorer[randomRow][randomColumn + 1] == 15 and ecounter5L != 5 or playerShipStorer[randomRow][
         randomColumn + 1] == 14 and ecounter4L != 4 or playerShipStorer[randomRow][randomColumn + 1] == 13 and ecounter3L != 3 or \
             playerShipStorer[randomRow][
                 randomColumn + 1] == 12 and ecounter2L != 2 or playerShipStorer[randomRow][randomColumn + 1] == 11 and ecounter2L2 != 2):
-        newPos = findAttack(randomRow, randomColumn - 1, "down")
+        newPos = findAttack(randomRow, randomColumn + 1, "down", (randomRow, randomColumn + 1))
 
     return newPos
 
@@ -846,7 +846,7 @@ def mediumGameScene(currentScene):
                 isAttackable = True
 
                 if found == True:
-                    newPos = findAttack(randomRow, randomColumn, "none")
+                    newPos = findAttack(randomRow, randomColumn, "none", (-1, -1))
 
                 if newPos == (-1, -1):
                     print("new pos = -1 -1")
