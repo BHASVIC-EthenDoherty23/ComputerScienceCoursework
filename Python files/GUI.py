@@ -922,7 +922,7 @@ def mediumGameScene(currentScene):
                     randomColumn = random_integers(0,9)
                     found = False
 
-            
+
                 else:
                     print("rands = news")
                     randomRow = newPos[0]
