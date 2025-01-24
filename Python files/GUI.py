@@ -601,31 +601,31 @@ def easyGameScene(currentScene):
 
 
 def findAttack(randomRow, randomColumn, direction, newPos):
-    global ecounter5L, ecounter4L, ecounter3L, ecounter2L, ecounter2L2
-    if direction == "up" and (playerShipStorer[randomRow][randomColumn] == 15 and ecounter5L != 5  or playerShipStorer[randomRow][
-            randomColumn] == 14 and ecounter4L != 4 or playerShipStorer[randomRow][randomColumn] == 13 and ecounter3L != 3 or \
-                playerShipStorer[randomRow][
-                    randomColumn] == 12 and ecounter2L != 2 or playerShipStorer[randomRow][randomColumn] == 11 and ecounter2L2 != 2):
+    global ecounter5L, ecounter4L, ecounter3L, ecounter2L, ecounter2L2, ecounter7L
+#    if direction == "up" and (playerShipStorer[randomRow][randomColumn] == 15 and ecounter5L != 5  or playerShipStorer[randomRow][
+#            randomColumn] == 14 and ecounter4L != 4 or playerShipStorer[randomRow][randomColumn] == 13 and ecounter3L != 3 or \
+#                playerShipStorer[randomRow][
+#                    randomColumn] == 12 and ecounter2L != 2 or playerShipStorer[randomRow][randomColumn] == 11 and ecounter2L2 != 2):
+#
+#        direction = "down"
+#
+#    elif direction == "down" and (playerShipStorer[randomRow][randomColumn] == 15 and ecounter5L != 5 or playerShipStorer[randomRow][
+#            randomColumn] == 14 and ecounter4L != 4 or playerShipStorer[randomRow][randomColumn] == 13 and ecounter3L != 3 or \
+#                playerShipStorer[randomRow][
+#                    randomColumn] == 12 and ecounter2L != 2 or playerShipStorer[randomRow][randomColumn] == 11 and ecounter2L2 != 2):
+#        direction = "up"
+#
+#    elif direction == "right" and (playerShipStorer[randomRow][randomColumn] == 15 and ecounter5L != 5 or playerShipStorer[randomRow][
+#            randomColumn] == 14 and ecounter4L != 4 or playerShipStorer[randomRow][randomColumn] == 13 and ecounter3L != 3 or \
+#                playerShipStorer[randomRow][
+#                    randomColumn] == 12 and ecounter2L != 2 or playerShipStorer[randomRow][randomColumn] == 11 and ecounter2L2 != 2):
+#        direction = "left"
 
-        direction = "down"
-
-    elif direction == "down" and (playerShipStorer[randomRow][randomColumn] == 15 and ecounter5L != 5 or playerShipStorer[randomRow][
-            randomColumn] == 14 and ecounter4L != 4 or playerShipStorer[randomRow][randomColumn] == 13 and ecounter3L != 3 or \
-                playerShipStorer[randomRow][
-                    randomColumn] == 12 and ecounter2L != 2 or playerShipStorer[randomRow][randomColumn] == 11 and ecounter2L2 != 2):
-        direction = "up"
-
-    elif direction == "right" and (playerShipStorer[randomRow][randomColumn] == 15 and ecounter5L != 5 or playerShipStorer[randomRow][
-            randomColumn] == 14 and ecounter4L != 4 or playerShipStorer[randomRow][randomColumn] == 13 and ecounter3L != 3 or \
-                playerShipStorer[randomRow][
-                    randomColumn] == 12 and ecounter2L != 2 or playerShipStorer[randomRow][randomColumn] == 11 and ecounter2L2 != 2):
-        direction = "left"
-
-    elif direction == "left" and (playerShipStorer[randomRow][randomColumn] == 15 and ecounter5L != 5 or playerShipStorer[randomRow][
-            randomColumn] == 14 and ecounter4L != 4 or playerShipStorer[randomRow][randomColumn] == 13 and ecounter3L != 3 or \
-                playerShipStorer[randomRow][
-                    randomColumn] == 12 and ecounter2L != 2 or playerShipStorer[randomRow][randomColumn] == 11 and ecounter2L2 != 2):
-        direction = "right"
+#    elif direction == "left" and (playerShipStorer[randomRow][randomColumn] == 15 and ecounter5L != 5 or playerShipStorer[randomRow][
+#            randomColumn] == 14 and ecounter4L != 4 or playerShipStorer[randomRow][randomColumn] == 13 and ecounter3L != 3 or \
+#                playerShipStorer[randomRow][
+#                    randomColumn] == 12 and ecounter2L != 2 or playerShipStorer[randomRow][randomColumn] == 11 and ecounter2L2 != 2):
+#        direction = "right"
 
     if randomColumn - 1 < 0:
         direction = "down"
@@ -699,7 +699,7 @@ def findAttack(randomRow, randomColumn, direction, newPos):
 
 
 def mediumGameScene(currentScene):
-    global backStack, playerGrid
+    global backStack, playerGrid, ecounter7L
     global timeSinceSceneChange
     global turn
     global direction
@@ -917,6 +917,12 @@ def mediumGameScene(currentScene):
                             if randomColumn > 9:
                                 isAttackable = False
 
+                elif playerGrid[randomRow][randomColumn] != tempPlayerGrid[randomRow][randomColumn]:
+                    randomRow = random_integers(0, 9)
+                    randomColumn = random_integers(0,9)
+                    found = False
+
+            
                 else:
                     print("rands = news")
                     randomRow = newPos[0]
@@ -968,6 +974,7 @@ def mediumGameScene(currentScene):
                                 for i in range(10):
                                     for j in range(10):
                                         if playerShipStorer[i][j] == 15:
+                                            playerShipStorer[i][j] = 17
                                             playerGrid[i][j] = button.Button(50 * scaleMulti * i + size[0] / 5,
                                                                              50 * j + size[1] / 3,
                                                                              black_Square, 50 * scaleMulti, 50 * scaleMulti)
@@ -975,6 +982,7 @@ def mediumGameScene(currentScene):
                                 for i in range(10):
                                     for j in range(10):
                                         if playerShipStorer[i][j] == 14:
+                                            playerShipStorer[i][j] = 17
                                             playerGrid[i][j] = button.Button(50 * scaleMulti * i + size[0] / 5,
                                                                              50 * scaleMulti * j + size[1] / 3,
                                                                              black_Square, 50 * scaleMulti, 50 * scaleMulti)
@@ -982,6 +990,7 @@ def mediumGameScene(currentScene):
                                 for i in range(10):
                                     for j in range(10):
                                         if playerShipStorer[i][j] == 13:
+                                            playerShipStorer[i][j] = 17
                                             playerGrid[i][j] = button.Button(50 * scaleMulti * i + size[0] / 5,
                                                                              50 * scaleMulti * j + size[1] / 3,
                                                                              black_Square, 50 * scaleMulti, 50 * scaleMulti)
@@ -989,6 +998,7 @@ def mediumGameScene(currentScene):
                                 for i in range(10):
                                     for j in range(10):
                                         if playerShipStorer[i][j] == 12:
+                                            playerShipStorer[i][j] = 17
                                             playerGrid[i][j] = button.Button(50 * scaleMulti * i + size[0] / 5,
                                                                             50 * scaleMulti * j + size[1] / 3,
                                                                             black_Square, 50 * scaleMulti, 50 * scaleMulti)
@@ -996,10 +1006,19 @@ def mediumGameScene(currentScene):
                                 for i in range(10):
                                     for j in range(10):
                                         if playerShipStorer[i][j] == 11:
+                                            playerShipStorer[i][j] = 17
                                             playerGrid[i][j] = button.Button(50 * scaleMulti * i + size[0] / 5,
                                                                              50 * scaleMulti * j + size[1] / 3,
                                                                              black_Square, 50 * scaleMulti, 50 * scaleMulti)
-                    playerShipsHit = ecounter5L + ecounter2L + ecounter3L + ecounter4L + ecounter2L2
+                            ecounter7L = 0
+                            for i in range(10):
+                                for j in range(10):
+                                    if playerShipStorer[i][j] == 17:
+                                        ecounter7L = ecounter7L + 1
+                                        playerGrid[i][j] = button.Button(50 * scaleMulti * i + size[0] / 5,
+                                                                         50 * scaleMulti * j + size[1] / 3,
+                                                                         black_Square, 50 * scaleMulti, 50 * scaleMulti)
+                    playerShipsHit = ecounter5L + ecounter2L + ecounter3L + ecounter4L + ecounter2L2 + ecounter7L
                     if playerShipsHit > 14:
                         pass
                     if playerShipsHit == 16:
