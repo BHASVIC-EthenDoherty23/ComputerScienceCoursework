@@ -602,30 +602,29 @@ def easyGameScene(currentScene):
 
 def findAttack(randomRow, randomColumn, direction, newPos):
     global ecounter5L, ecounter4L, ecounter3L, ecounter2L, ecounter2L2, ecounter7L
-#    if direction == "up" and (playerShipStorer[randomRow][randomColumn] == 15 and ecounter5L != 5  or playerShipStorer[randomRow][
-#            randomColumn] == 14 and ecounter4L != 4 or playerShipStorer[randomRow][randomColumn] == 13 and ecounter3L != 3 or \
-#                playerShipStorer[randomRow][
-#                    randomColumn] == 12 and ecounter2L != 2 or playerShipStorer[randomRow][randomColumn] == 11 and ecounter2L2 != 2):
-#
-#        direction = "down"
-#
-#    elif direction == "down" and (playerShipStorer[randomRow][randomColumn] == 15 and ecounter5L != 5 or playerShipStorer[randomRow][
-#            randomColumn] == 14 and ecounter4L != 4 or playerShipStorer[randomRow][randomColumn] == 13 and ecounter3L != 3 or \
-#                playerShipStorer[randomRow][
-#                    randomColumn] == 12 and ecounter2L != 2 or playerShipStorer[randomRow][randomColumn] == 11 and ecounter2L2 != 2):
-#        direction = "up"
-#
-#    elif direction == "right" and (playerShipStorer[randomRow][randomColumn] == 15 and ecounter5L != 5 or playerShipStorer[randomRow][
-#            randomColumn] == 14 and ecounter4L != 4 or playerShipStorer[randomRow][randomColumn] == 13 and ecounter3L != 3 or \
-#                playerShipStorer[randomRow][
-#                    randomColumn] == 12 and ecounter2L != 2 or playerShipStorer[randomRow][randomColumn] == 11 and ecounter2L2 != 2):
-#        direction = "left"
+    if direction == "up" and (playerShipStorer[randomRow][randomColumn] == 15 and ecounter5L != 5  or playerShipStorer[randomRow][
+            randomColumn] == 14 and ecounter4L != 4 or playerShipStorer[randomRow][randomColumn] == 13 and ecounter3L != 3 or \
+                playerShipStorer[randomRow][
+                    randomColumn] == 12 and ecounter2L != 2 or playerShipStorer[randomRow][randomColumn] == 11 and ecounter2L2 != 2):
 
-#    elif direction == "left" and (playerShipStorer[randomRow][randomColumn] == 15 and ecounter5L != 5 or playerShipStorer[randomRow][
-#            randomColumn] == 14 and ecounter4L != 4 or playerShipStorer[randomRow][randomColumn] == 13 and ecounter3L != 3 or \
-#                playerShipStorer[randomRow][
-#                    randomColumn] == 12 and ecounter2L != 2 or playerShipStorer[randomRow][randomColumn] == 11 and ecounter2L2 != 2):
-#        direction = "right"
+        direction = "down"
+
+    elif direction == "down" and (playerShipStorer[randomRow][randomColumn] == 15 and ecounter5L != 5 or playerShipStorer[randomRow][
+            randomColumn] == 14 and ecounter4L != 4 or playerShipStorer[randomRow][randomColumn] == 13 and ecounter3L != 3 or \
+                playerShipStorer[randomRow][
+                    randomColumn] == 12 and ecounter2L != 2 or playerShipStorer[randomRow][randomColumn] == 11 and ecounter2L2 != 2):
+        direction = "up"
+
+    elif direction == "right" and (playerShipStorer[randomRow][randomColumn] == 15 and ecounter5L != 5 or playerShipStorer[randomRow][
+            randomColumn] == 14 and ecounter4L != 4 or playerShipStorer[randomRow][randomColumn] == 13 and ecounter3L != 3 or \
+                playerShipStorer[randomRow][
+                    randomColumn] == 12 and ecounter2L != 2 or playerShipStorer[randomRow][randomColumn] == 11 and ecounter2L2 != 2):
+        direction = "left"
+    elif direction == "left" and (playerShipStorer[randomRow][randomColumn] == 15 and ecounter5L != 5 or playerShipStorer[randomRow][
+            randomColumn] == 14 and ecounter4L != 4 or playerShipStorer[randomRow][randomColumn] == 13 and ecounter3L != 3 or \
+                playerShipStorer[randomRow][
+                    randomColumn] == 12 and ecounter2L != 2 or playerShipStorer[randomRow][randomColumn] == 11 and ecounter2L2 != 2):
+        direction = "right"
 
     if randomColumn - 1 < 0:
         direction = "down"
@@ -666,6 +665,7 @@ def findAttack(randomRow, randomColumn, direction, newPos):
         randomColumn] == 14 and ecounter4L != 4 or playerShipStorer[randomRow + 1][randomColumn] == 13 and ecounter3L != 3 or \
             playerShipStorer[randomRow + 1][
                 randomColumn] == 12 and ecounter2L != 4 or playerShipStorer[randomRow + 1][randomColumn] == 11 and ecounter2L2 != 2):
+
         newPos = findAttack(randomRow + 1, randomColumn, "right", (randomRow + 1, randomColumn))
 
     elif direction == "left" and (playerShipStorer[randomRow - 1][randomColumn] == 15 and ecounter5L != 5 or playerShipStorer[randomRow - 1][
@@ -678,6 +678,13 @@ def findAttack(randomRow, randomColumn, direction, newPos):
         randomColumn - 1] == 14 and ecounter4L != 4 or playerShipStorer[randomRow][randomColumn - 1] == 13 and ecounter3L != 3 or \
             playerShipStorer[randomRow][
                 randomColumn - 1] == 12 and ecounter2L != 2 or playerShipStorer[randomRow - 1][randomColumn] == 11 and ecounter2L2 != 2):
+
+        if direction == "up" and (playerShipStorer[randomRow][randomColumn] == 15 and ecounter5L != 5  or playerShipStorer[randomRow][
+            randomColumn] == 14 and ecounter4L != 4 or playerShipStorer[randomRow][randomColumn] == 13 and ecounter3L != 3 or \
+                                  playerShipStorer[randomRow][
+                                      randomColumn] == 12 and ecounter2L != 2 or playerShipStorer[randomRow][randomColumn] == 11 and ecounter2L2 != 2):
+
+        direction = "down"
         newPos = findAttack(randomRow, randomColumn - 1, "up",(randomRow, randomColumn -1))
 
     elif direction == "down" and (playerShipStorer[randomRow][randomColumn + 1] == 15 and ecounter5L != 5 or playerShipStorer[randomRow][
