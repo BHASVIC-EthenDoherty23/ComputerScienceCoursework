@@ -684,7 +684,7 @@ def findAttack(randomRow, randomColumn, direction, newPos):
                                   playerShipStorer[randomRow][
                                       randomColumn] == 12 and ecounter2L != 2 or playerShipStorer[randomRow][randomColumn] == 11 and ecounter2L2 != 2):
 
-        direction = "down"
+            direction = "down"
         newPos = findAttack(randomRow, randomColumn - 1, "up",(randomRow, randomColumn -1))
 
     elif direction == "down" and (playerShipStorer[randomRow][randomColumn + 1] == 15 and ecounter5L != 5 or playerShipStorer[randomRow][
